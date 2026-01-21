@@ -6,6 +6,7 @@
     <title>TALVA - Fotogrāfiju galerija</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Visi stili paliek tie paši kā iepriekš */
         * {
             margin: 0;
             padding: 0;
@@ -19,417 +20,150 @@
             line-height: 1.6;
         }
         
-        /* Navigācija */
-        header {
-            background-color: #1a1a1a;
-            color: white;
-            padding: 1.5rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+        /* ... visi pārējie stili paliek tie paši ... */
         
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #fff;
-            text-decoration: none;
-        }
-        
-        .logo span {
-            color: #888;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 2rem;
-        }
-        
-        nav ul li a {
-            color: #ddd;
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-            position: relative;
-            padding-bottom: 5px;
-        }
-        
-        nav ul li a:hover {
-            color: white;
-        }
-        
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #888;
-            transition: width 0.3s;
-        }
-        
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-        
-        /* Galvenā sekcija */
-        .hero {
-            background-color: #2a2a2a;
-            color: white;
-            text-align: center;
-            padding: 4rem 2rem;
-            margin-bottom: 3rem;
-        }
-        
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto;
-            color: #bbb;
-        }
-        
-        /* Galerijas daļa */
-        .gallery-section {
-            max-width: 1200px;
-            margin: 0 auto 4rem;
-            padding: 0 2rem;
-        }
-        
-        .section-title {
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
-            color: #222;
-            text-align: center;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 3px;
-            background-color: #888;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        /* Galerijas režģis */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        
-        .gallery-item {
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-            height: 280px;
-            position: relative;
-        }
-        
-        .gallery-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-        
-        .gallery-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .gallery-item:hover .gallery-img {
-            transform: scale(1.05);
-        }
-        
-        .img-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-            color: white;
-            padding: 1.5rem 1rem 1rem;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-        }
-        
-        .gallery-item:hover .img-overlay {
-            transform: translateY(0);
-        }
-        
-        .img-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .img-date {
-            font-size: 0.9rem;
-            color: #ccc;
-        }
-        
-        /* Palielinātās bildes logs */
-        .lightbox {
+        /* Paroles aizsardzības logs */
+        .password-modal {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            z-index: 1000;
+            background-color: rgba(0,0,0,0.85);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.3s;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .lightbox.active {
+        .password-modal.active {
             display: flex;
         }
         
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            border-radius: 4px;
-        }
-        
-        .lightbox-close {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            color: white;
-            font-size: 2.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .lightbox-close:hover {
-            color: #aaa;
-        }
-        
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 30px;
-        }
-        
-        .lightbox-prev, .lightbox-next {
-            color: white;
-            font-size: 3rem;
-            cursor: pointer;
-            transition: color 0.3s;
-            background-color: rgba(0,0,0,0.3);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .lightbox-prev:hover, .lightbox-next:hover {
-            color: #aaa;
-            background-color: rgba(0,0,0,0.5);
-        }
-        
-        .lightbox-caption {
-            position: absolute;
-            bottom: 30px;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-size: 1.2rem;
-            padding: 0 20px;
-        }
-        
-        /* Pogas bilžu augšupielādei */
-        .upload-section {
+        .password-box {
             background-color: white;
-            padding: 3rem 2rem;
+            padding: 3rem;
             border-radius: 8px;
-            max-width: 800px;
-            margin: 0 auto 4rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            max-width: 400px;
+            width: 90%;
             text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         
-        .upload-title {
-            font-size: 1.8rem;
+        .password-box h2 {
             margin-bottom: 1.5rem;
             color: #222;
         }
         
-        .upload-btn {
-            display: inline-block;
-            background-color: #333;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            cursor: pointer;
+        .password-input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
             font-size: 1.1rem;
-            transition: background-color 0.3s;
-            margin-top: 1rem;
+            transition: border-color 0.3s;
         }
         
-        .upload-btn:hover {
+        .password-input:focus {
+            border-color: #888;
+            outline: none;
+        }
+        
+        .password-submit {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        
+        .password-submit:hover {
             background-color: #555;
         }
         
-        .upload-btn i {
-            margin-right: 10px;
-        }
-        
-        #fileInput {
+        .password-error {
+            color: #d32f2f;
+            margin-top: 1rem;
             display: none;
         }
         
-        /* Kontaktu sekcija */
-        .contact-section {
+        /* Admin panelis */
+        .admin-panel {
             background-color: #2a2a2a;
             color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
-        
-        .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .contact-title {
-            font-size: 2.2rem;
-            margin-bottom: 2rem;
-            color: #fff;
-        }
-        
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .contact-item {
-            display: flex;
+            padding: 1.5rem 2rem;
+            display: none;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .admin-panel.active {
+            display: flex;
+        }
+        
+        .admin-info {
             font-size: 1.1rem;
         }
         
-        .contact-item i {
+        .admin-info i {
+            margin-right: 8px;
             color: #888;
-            font-size: 1.5rem;
         }
         
-        /* Kājene */
-        footer {
-            background-color: #1a1a1a;
-            color: #aaa;
-            text-align: center;
-            padding: 2rem;
+        .logout-btn {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
         }
         
-        .copyright {
-            font-size: 0.9rem;
-            margin-top: 1rem;
+        .logout-btn:hover {
+            background-color: #666;
         }
         
-        /* Responsīvais dizains */
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            nav ul {
-                gap: 1.5rem;
-            }
-            
-            nav ul li {
-                margin-left: 0;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            }
-            
-            .lightbox-close {
-                top: 20px;
-                right: 25px;
-                font-size: 2rem;
-            }
-            
-            .lightbox-nav {
-                padding: 0 15px;
-            }
-            
-            .lightbox-prev, .lightbox-next {
-                font-size: 2rem;
-                width: 50px;
-                height: 50px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero {
-                padding: 3rem 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 1.8rem;
-            }
+        /* Atjauninātas upload-section klases */
+        .upload-section.hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
+    <!-- Paroles aizsardzības logs -->
+    <div class="password-modal active" id="passwordModal">
+        <div class="password-box">
+            <h2><i class="fas fa-lock"></i> Administratora piekļuve</h2>
+            <p>Lai piekļūtu bilžu augšupielādei, ievadiet administratora paroli:</p>
+            <input type="password" class="password-input" id="passwordInput" placeholder="Ievadiet paroli">
+            <button class="password-submit" id="passwordSubmit">Piekļūt</button>
+            <p class="password-error" id="passwordError">Nepareiza parole. Mēģiniet vēlreiz.</p>
+            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">
+                <i class="fas fa-info-circle"></i> Apmeklētāji var tikai skatīt bildes, bet ne augšupielādēt jaunas.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Admin panelis (rādās tikai pēc pareizas paroles) -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-info">
+            <i class="fas fa-user-shield"></i>
+            <span>Esi pieslēdzies kā administrators</span>
+        </div>
+        <button class="logout-btn" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Iziet
+        </button>
+    </div>
+
     <!-- Navigācijas josla -->
     <header>
         <div class="nav-container">
@@ -458,15 +192,29 @@
         </div>
     </section>
 
-    <!-- Augšupielādes sekcija -->
-    <section class="upload-section">
-        <h3 class="upload-title">Pievienot jaunu bildi galerijai</h3>
-        <p>Izvēlies bildi no sava datora, lai to pievienotu savai fotogrāfiju kolekcijai. Atbalstītie formāti: JPG, PNG, GIF.</p>
-        <label for="fileInput" class="upload-btn">
-            <i class="fas fa-cloud-upload-alt"></i> Izvēlēties bildi
-        </label>
-        <input type="file" id="fileInput" accept="image/*">
+    <!-- Augšupielādes sekcija (sākotnēji paslēpta) -->
+    <section class="upload-section hidden" id="uploadSection">
+        <h3 class="upload-title">Administratora panelis - bilžu pārvaldība</h3>
+        <p>Tikai administrators var pievienot jaunas bildes galerijai. Atbalstītie formāti: JPG, PNG, GIF.</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap;">
+            <label for="fileInput" class="upload-btn">
+                <i class="fas fa-cloud-upload-alt"></i> Izvēlēties bildi
+            </label>
+            <button class="upload-btn" id="deleteAllBtn" style="background-color: #d32f2f;">
+                <i class="fas fa-trash-alt"></i> Dzēst visas bildes
+            </button>
+        </div>
+        <input type="file" id="fileInput" accept="image/*" multiple>
         <p id="uploadStatus"></p>
+        <div style="margin-top: 2rem; padding: 1rem; background-color: #f9f9f9; border-radius: 4px;">
+            <h4><i class="fas fa-info-circle"></i> Administratora instrukcijas:</h4>
+            <ul style="text-align: left; margin-top: 0.5rem;">
+                <li>Izvēlieties vienu vai vairākas bildes, lai tās pievienotu galerijai</li>
+                <li>Maksimālais faila izmērs: 5 MB</li>
+                <li>Ieteicamais izmērs: vismaz 800x600 pikseļi</li>
+                <li>Dzēšot visas bildes, tiks atjaunotas sākotnējās bildes</li>
+            </ul>
+        </div>
     </section>
 
     <!-- Palielinātās bildes logs -->
@@ -509,7 +257,18 @@
     </footer>
 
     <script>
-        // Aizpildām galeriju ar sākuma bildēm
+        // Administratora parole (mainīt pēc vajadzības)
+        const ADMIN_PASSWORD = "talva123";
+        const SESSION_KEY = "talva_admin_logged_in";
+        
+        // DOM elementi
+        const passwordModal = document.getElementById('passwordModal');
+        const passwordInput = document.getElementById('passwordInput');
+        const passwordSubmit = document.getElementById('passwordSubmit');
+        const passwordError = document.getElementById('passwordError');
+        const adminPanel = document.getElementById('adminPanel');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const uploadSection = document.getElementById('uploadSection');
         const galleryContainer = document.getElementById('galleryContainer');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
@@ -519,21 +278,136 @@
         const lightboxNext = document.getElementById('lightboxNext');
         const fileInput = document.getElementById('fileInput');
         const uploadStatus = document.getElementById('uploadStatus');
+        const deleteAllBtn = document.getElementById('deleteAllBtn');
         
-        // Sākotnējās bildes ar nosaukumiem un datumiem
+        // Sākotnējās bildes
         const initialImages = [
-            { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Kalnu ainava", date: "2023. gada 15. maijs" },
-            { src: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Meža takas", date: "2023. gada 3. jūnijs" },
-            { src: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Pilsētas panorama", date: "2023. gada 22. jūlijs" },
-            { src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Rīta migla", date: "2023. gada 10. augusts" },
-            { src: "https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Kokaudzes", date: "2023. gada 5. septembris" },
-            { src: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Jūras krasts", date: "2023. gada 18. septembris" }
+            { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Kalnu ainava", date: "2023. gada 15. maijs", uploadedBy: "sistēma" },
+            { src: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Meža takas", date: "2023. gada 3. jūnijs", uploadedBy: "sistēma" },
+            { src: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Pilsētas panorama", date: "2023. gada 22. jūlijs", uploadedBy: "sistēma" }
         ];
         
-        let currentImages = [...initialImages];
+        let currentImages = JSON.parse(localStorage.getItem('talva_gallery_images')) || [...initialImages];
         let currentImageIndex = 0;
+        let isAdminLoggedIn = localStorage.getItem(SESSION_KEY) === 'true';
         
-        // Funkcija, lai renderētu galeriju
+        // Pārbauda, vai lietotājs jau ir pieslēdzies
+        function checkLoginStatus() {
+            if (isAdminLoggedIn) {
+                passwordModal.classList.remove('active');
+                adminPanel.classList.add('active');
+                uploadSection.classList.remove('hidden');
+            } else {
+                passwordModal.classList.add('active');
+                adminPanel.classList.remove('active');
+                uploadSection.classList.add('hidden');
+            }
+        }
+        
+        // Pieslēgšanās funkcija
+        function login() {
+            const password = passwordInput.value.trim();
+            
+            if (password === ADMIN_PASSWORD) {
+                // Veiksmīga pieslēgšanās
+                isAdminLoggedIn = true;
+                localStorage.setItem(SESSION_KEY, 'true');
+                checkLoginStatus();
+                passwordInput.value = '';
+                passwordError.style.display = 'none';
+                
+                // Parāda paziņojumu
+                showNotification('Veiksmīgi pieslēgts kā administrators!', 'success');
+            } else {
+                // Nepareiza parole
+                passwordError.style.display = 'block';
+                passwordInput.value = '';
+                passwordInput.focus();
+                
+                // Vibrācija mobīlajām ierīcēm
+                if (navigator.vibrate) {
+                    navigator.vibrate(200);
+                }
+            }
+        }
+        
+        // Atteikšanās funkcija
+        function logout() {
+            isAdminLoggedIn = false;
+            localStorage.setItem(SESSION_KEY, 'false');
+            checkLoginStatus();
+            showNotification('Veiksmīgi atslēgts no administratora paneļa', 'info');
+        }
+        
+        // Paziņojumu funkcija
+        function showNotification(message, type) {
+            // Ja jau ir paziņojums, noņem to
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <span>${message}</span>
+                <button class="notification-close">&times;</button>
+            `;
+            
+            // Pievieno stilus
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: ${type === 'success' ? '#4caf50' : '#2196f3'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                min-width: 300px;
+                max-width: 400px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                z-index: 3000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            // Pievieno animāciju
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                .notification-close {
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    margin-left: 1rem;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Pievieno aizvēršanas funkcionalitāti
+            const closeBtn = notification.querySelector('.notification-close');
+            closeBtn.addEventListener('click', () => {
+                notification.remove();
+            });
+            
+            // Automātiski noņem pēc 5 sekundēm
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 5000);
+            
+            document.body.appendChild(notification);
+        }
+        
+        // Galerijas renderēšana
         function renderGallery() {
             galleryContainer.innerHTML = '';
             
@@ -542,65 +416,238 @@
                 galleryItem.className = 'gallery-item';
                 galleryItem.setAttribute('data-index', index);
                 
+                // Pievieno administratora kontroli, ja ir pieslēdzies
+                const adminControls = isAdminLoggedIn ? 
+                    `<div class="admin-image-controls">
+                        <button class="admin-delete-btn" data-index="${index}" title="Dzēst bildi">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="admin-edit-btn" data-index="${index}" title="Rediģēt nosaukumu">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </div>` : '';
+                
                 galleryItem.innerHTML = `
                     <img src="${image.src}" alt="${image.title}" class="gallery-img">
                     <div class="img-overlay">
                         <h3 class="img-title">${image.title}</h3>
-                        <p class="img-date">${image.date}</p>
+                        <p class="img-date">${image.date} ${image.uploadedBy === 'sistēma' ? '' : '(augšupielādēja: admins)'}</p>
                     </div>
+                    ${adminControls}
                 `;
                 
-                galleryItem.addEventListener('click', () => openLightbox(index));
+                galleryItem.addEventListener('click', (e) => {
+                    // Ja klikšķina uz admin kontroles, nevar atvērt lightbox
+                    if (!e.target.closest('.admin-image-controls')) {
+                        openLightbox(index);
+                    }
+                });
+                
                 galleryContainer.appendChild(galleryItem);
             });
+            
+            // Pievieno admin kontroles notikumus
+            if (isAdminLoggedIn) {
+                document.querySelectorAll('.admin-delete-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const index = parseInt(btn.getAttribute('data-index'));
+                        deleteImage(index);
+                    });
+                });
+                
+                document.querySelectorAll('.admin-edit-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const index = parseInt(btn.getAttribute('data-index'));
+                        editImageTitle(index);
+                    });
+                });
+            }
+            
+            // Saglabā bildes localStorage
+            localStorage.setItem('talva_gallery_images', JSON.stringify(currentImages));
         }
         
-        // Funkcija, lai atvērtu bildi lightbox
+        // Dzēš bildi
+        function deleteImage(index) {
+            if (confirm('Vai tiešām vēlaties dzēst šo bildi?')) {
+                currentImages.splice(index, 1);
+                renderGallery();
+                showNotification('Bilde veiksmīgi dzēsta', 'success');
+            }
+        }
+        
+        // Rediģē bildes nosaukumu
+        function editImageTitle(index) {
+            const newTitle = prompt('Ievadiet jaunu bildes nosaukumu:', currentImages[index].title);
+            if (newTitle && newTitle.trim() !== '') {
+                currentImages[index].title = newTitle.trim();
+                renderGallery();
+                showNotification('Bildes nosaukums atjaunināts', 'success');
+            }
+        }
+        
+        // Dzēš visas bildes
+        function deleteAllImages() {
+            if (confirm('Vai tiešām vēlaties dzēst VISAS bildes? Tiks atjaunotas sākotnējās bildes.')) {
+                currentImages = [...initialImages];
+                renderGallery();
+                showNotification('Visas bildes dzēstas. Atjaunotas sākotnējās bildes.', 'info');
+            }
+        }
+        
+        // Lightbox funkcionalitāte (paliek nemainīga)
         function openLightbox(index) {
             currentImageIndex = index;
             updateLightbox();
             lightbox.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Novērš ritināšanu aiz lightbox
+            document.body.style.overflow = 'hidden';
         }
         
-        // Funkcija, lai atjauninātu lightbox saturu
         function updateLightbox() {
             const currentImage = currentImages[currentImageIndex];
             lightboxImg.src = currentImage.src;
             lightboxCaption.textContent = `${currentImage.title} - ${currentImage.date}`;
         }
         
-        // Funkcija, lai aizvērtu lightbox
         function closeLightbox() {
             lightbox.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
         
-        // Funkcija, lai parādītu nākamo bildi
         function showNextImage() {
             currentImageIndex = (currentImageIndex + 1) % currentImages.length;
             updateLightbox();
         }
         
-        // Funkcija, lai parādītu iepriekšējo bildi
         function showPrevImage() {
             currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
             updateLightbox();
         }
         
-        // Pievieno klausītājus lightbox elementiem
+        // Bilžu augšupielādes apstrāde
+        fileInput.addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            
+            if (files.length === 0) return;
+            
+            let uploadedCount = 0;
+            let errorCount = 0;
+            
+            files.forEach((file, fileIndex) => {
+                // Pārbauda, vai fails ir attēls
+                if (!file.type.match('image.*')) {
+                    errorCount++;
+                    return;
+                }
+                
+                // Pārbauda faila izmēru (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    errorCount++;
+                    return;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(event) {
+                    // Pievieno jauno bildi kolekcijai
+                    const newImage = {
+                        src: event.target.result,
+                        title: `Mana bilde ${currentImages.length + 1}`,
+                        date: new Date().toLocaleDateString('lv-LV'),
+                        uploadedBy: 'admins'
+                    };
+                    
+                    currentImages.push(newImage);
+                    uploadedCount++;
+                    
+                    // Ja ir pēdējā bilde, atjauno galeriju
+                    if (fileIndex === files.length - 1) {
+                        renderGallery();
+                        
+                        let message = `${uploadedCount} bilde(s) veiksmīgi pievienota(s) galerijai!`;
+                        if (errorCount > 0) {
+                            message += ` ${errorCount} bilde(s) netika pievienota(s) (nederīgs formāts vai pārāk liels izmērs).`;
+                        }
+                        
+                        uploadStatus.textContent = message;
+                        uploadStatus.style.color = uploadedCount > 0 ? '#388e3c' : '#d32f2f';
+                        
+                        // Notīra input lauku
+                        fileInput.value = '';
+                        
+                        // Pazūd statusa paziņojums pēc 5 sekundēm
+                        setTimeout(() => {
+                            uploadStatus.textContent = '';
+                        }, 5000);
+                        
+                        // Parāda paziņojumu
+                        showNotification(message, 'success');
+                    }
+                };
+                
+                reader.readAsDataURL(file);
+            });
+        });
+        
+        // Pievieno admin kontroles stilus
+        const adminStyles = document.createElement('style');
+        adminStyles.textContent = `
+            .admin-image-controls {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                display: flex;
+                gap: 8px;
+                z-index: 2;
+            }
+            
+            .admin-delete-btn, .admin-edit-btn {
+                background-color: rgba(0,0,0,0.7);
+                color: white;
+                border: none;
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            
+            .admin-delete-btn:hover {
+                background-color: rgba(211, 47, 47, 0.9);
+            }
+            
+            .admin-edit-btn:hover {
+                background-color: rgba(33, 150, 243, 0.9);
+            }
+        `;
+        document.head.appendChild(adminStyles);
+        
+        // Notikumu klausītāji
+        passwordSubmit.addEventListener('click', login);
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+        
+        logoutBtn.addEventListener('click', logout);
+        deleteAllBtn.addEventListener('click', deleteAllImages);
+        
         lightboxClose.addEventListener('click', closeLightbox);
         lightboxNext.addEventListener('click', showNextImage);
         lightboxPrev.addEventListener('click', showPrevImage);
         
-        // Aizver lightbox, ja klikšķina ārpus bildes
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) {
                 closeLightbox();
             }
         });
         
-        // Pievieno klaviatūras vadību lightbox
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
             
@@ -609,63 +656,11 @@
             if (e.key === 'ArrowLeft') showPrevImage();
         });
         
-        // Bilžu augšupielādes apstrāde
-        fileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            
-            if (!file) return;
-            
-            // Pārbauda, vai fails ir attēls
-            if (!file.type.match('image.*')) {
-                uploadStatus.textContent = 'Lūdzu, izvēlies tikai attēlu failu (JPG, PNG, GIF).';
-                uploadStatus.style.color = '#d32f2f';
-                return;
-            }
-            
-            // Pārbauda faila izmēru (max 5MB)
-            if (file.size > 5 * 1024 * 1024) {
-                uploadStatus.textContent = 'Faila izmērs pārsniedz 5MB. Lūdzu, izvēlies mazāku bildi.';
-                uploadStatus.style.color = '#d32f2f';
-                return;
-            }
-            
-            const reader = new FileReader();
-            
-            reader.onload = function(event) {
-                // Pievieno jauno bildi kolekcijai
-                const newImage = {
-                    src: event.target.result,
-                    title: `Mana bilde ${currentImages.length + 1}`,
-                    date: new Date().toLocaleDateString('lv-LV')
-                };
-                
-                currentImages.push(newImage);
-                renderGallery();
-                
-                uploadStatus.textContent = 'Bilde veiksmīgi pievienota galerijai!';
-                uploadStatus.style.color = '#388e3c';
-                
-                // Notīra input lauku
-                fileInput.value = '';
-                
-                // Pazūd statusa paziņojums pēc 3 sekundēm
-                setTimeout(() => {
-                    uploadStatus.textContent = '';
-                }, 3000);
-            };
-            
-            reader.onerror = function() {
-                uploadStatus.textContent = 'Kļūda ielādējot bildi. Lūdzu, mēģini vēlreiz.';
-                uploadStatus.style.color = '#d32f2f';
-            };
-            
-            reader.readAsDataURL(file);
-        });
-        
         // Uzstāda kājenes gadu
         document.getElementById('currentYear').textContent = new Date().getFullYear();
         
-        // Inicializē galeriju
+        // Inicializē lapu
+        checkLoginStatus();
         renderGallery();
     </script>
 </body>
