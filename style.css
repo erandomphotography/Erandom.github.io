@@ -1,49 +1,6 @@
 
 body {
    
-    <!DOCTYPE html>
-<title>Color Example</title>
-<style>
-    div {
-        padding: 20px;
-        margin: 20px;
-    }
-    .textColor {
-        color: Silver;
-        background-color: white;
-    }
-    .borderColor {
-        border-width: 3px;
-        border-style: solid;
-        border-color: Silver;
-    }
-    .backgroundColor {
-        background-color: Silver;
-        color: white;
-    }
-    .backgroundGradient {
-        background: linear-gradient(to bottom, white, Silver);
-        color: white;
-    }
-
-</style>
-<div class="textColor borderColor">
-    <h1>Testing Text in Silver</h1>
-    <p>This text has been styled with a color of Silver.</p>
-    <p>The border is also uses Silver.</p>
-    <p>Try changing the values to see how it affects the output.</p>
-    <p>And see this color applied to the <a target="_blank" href="/html/codes/color/color-tester.cfm?colorName=Silver">Color Tester</a>.</p>
-</div>
-<div class="backgroundColor">
-    <h1>Testing a background color of Silver.</h1>
-    <p>This has a background color of Silver.</p>
-    <p>Try changing the values to see how it affects the output.</p>
-</div>
-<div class="backgroundGradient">
-    <h1>Testing a background gradient.</h1>
-    <p>This has a background gradient going between white and Silver.</p>
-    <p>Try changing the values to see how it affects the output.</p>
-</div>
     
     margin: 0;
     height: 100vh;
