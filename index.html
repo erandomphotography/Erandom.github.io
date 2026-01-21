@@ -3,202 +3,670 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mākslas Galerija | Pelēki Melnbalts</title>
-    <link rel="stylesheet" href="style.css">
+    <title>TALVA - Fotogrāfiju galerija</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Navigācija */
+        header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: #888;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        nav ul li a:hover {
+            color: white;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #888;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Galvenā sekcija */
+        .hero {
+            background-color: #2a2a2a;
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #bbb;
+        }
+        
+        /* Galerijas daļa */
+        .gallery-section {
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: #222;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: #888;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Galerijas režģis */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .gallery-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            height: 280px;
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.05);
+        }
+        
+        .img-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+            padding: 1.5rem 1rem 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover .img-overlay {
+            transform: translateY(0);
+        }
+        
+        .img-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .img-date {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        /* Palielinātās bildes logs */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .lightbox-close:hover {
+            color: #aaa;
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+        }
+        
+        .lightbox-prev, .lightbox-next {
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            background-color: rgba(0,0,0,0.3);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lightbox-prev:hover, .lightbox-next:hover {
+            color: #aaa;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .lightbox-caption {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            padding: 0 20px;
+        }
+        
+        /* Pogas bilžu augšupielādei */
+        .upload-section {
+            background-color: white;
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .upload-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #222;
+        }
+        
+        .upload-btn {
+            display: inline-block;
+            background-color: #333;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .upload-btn:hover {
+            background-color: #555;
+        }
+        
+        .upload-btn i {
+            margin-right: 10px;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        /* Kontaktu sekcija */
+        .contact-section {
+            background-color: #2a2a2a;
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact-title {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .contact-item i {
+            color: #888;
+            font-size: 1.5rem;
+        }
+        
+        /* Kājene */
+        footer {
+            background-color: #1a1a1a;
+            color: #aaa;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        /* Responsīvais dizains */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1.5rem;
+            }
+            
+            nav ul li {
+                margin-left: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            
+            .lightbox-close {
+                top: 20px;
+                right: 25px;
+                font-size: 2rem;
+            }
+            
+            .lightbox-nav {
+                padding: 0 15px;
+            }
+            
+            .lightbox-prev, .lightbox-next {
+                font-size: 2rem;
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Navigācija -->
-        <nav class="navbar">
-            <div class="nav-brand">
-                <i class="fas fa-camera-retro"></i>
-                <span>GALERIJA</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#sākums" class="active">Sākums</a></li>
-                <li><a href="#galerija">Galerija</a></li>
-                <li><a href="#par">Par</a></li>
-                <li><a href="#kontakti">Kontakti</a></li>
-            </ul>
-            <div class="theme-toggle">
-                <i class="fas fa-moon"></i>
-            </div>
-        </nav>
+    <!-- Navigācijas josla -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">TAL<span>VA</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> Blog</a></li>
+                    <li><a href="#gallery"><i class="fas fa-images"></i> Galerija</a></li>
+                    <li><a href="#contact"><i class="fas fa-envelope"></i> Kontakti</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        <!-- Hero sadaļa -->
-        <header class="hero" id="sākums">
-            <div class="hero-content">
-                <h1 class="hero-title">VIZIO<span class="highlight">NĀRĀ</span> FOTOGRAFIJU GALERIJA</h1>
-                <p class="hero-subtitle">Pelēku toņu harmonija no 1 līdz 100 attēliem</p>
-                <a href="#galerija" class="btn-primary">Apskatīt Galeriju <i class="fas fa-arrow-down"></i></a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number" id="total-images">0</span>
-                    <span class="stat-label">Kopējais attēlu skaits</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">100</span>
-                    <span class="stat-label">Maksimālā ietilpība</span>
-                </div>
-            </div>
-        </header>
+    <!-- Galvenā sekcija -->
+    <section class="hero">
+        <h1>Fotogrāfiju galerija</h1>
+        <p>Vieta, kur dalīties ar savām fotografijām melnā, baltā un pelēkā toņos. Spied uz jebkuras bildes, lai to aplūkotu pilnā izmērā.</p>
+    </section>
 
-        <!-- Galvenā galerija -->
-        <main class="main-content">
-            <section class="gallery-section" id="galerija">
-                <div class="section-header">
-                    <h2><i class="fas fa-images"></i> ATTĒLU GALERIJA</h2>
-                    <p class="section-subtitle">Klikšķini uz attēliem, lai palielinātu</p>
-                </div>
+    <!-- Galerijas sekcija -->
+    <section class="gallery-section" id="gallery">
+        <h2 class="section-title">Mana fotogrāfiju kolekcija</h2>
+        <div class="gallery-grid" id="galleryContainer">
+            <!-- Bildes tiks ielādētas ar JavaScript -->
+        </div>
+    </section>
 
-                <!-- Augšupielādes forma -->
-                <div class="upload-container">
-                    <div class="upload-box" id="uploadBox">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <h3>Pievienot attēlus</h3>
-                        <p>Velciet failus šeit vai klikšķiniet, lai atlasītu</p>
-                        <input type="file" id="imageUpload" accept="image/*" multiple>
-                        <div class="upload-progress" id="uploadProgress">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <p class="upload-info">Atbalstītie formāti: JPG, PNG, WebP (maks. 5MB)</p>
-                    </div>
-                    <div class="upload-controls">
-                        <button class="btn-secondary" id="sortNewest">
-                            <i class="fas fa-sort-amount-down"></i> Jaunākie
-                        </button>
-                        <button class="btn-secondary" id="sortRandom">
-                            <i class="fas fa-random"></i> Jaukt
-                        </button>
-                        <button class="btn-secondary" id="clearGallery">
-                            <i class="fas fa-trash"></i> Notīrīt
-                        </button>
-                    </div>
-                </div>
+    <!-- Augšupielādes sekcija -->
+    <section class="upload-section">
+        <h3 class="upload-title">Pievienot jaunu bildi galerijai</h3>
+        <p>Izvēlies bildi no sava datora, lai to pievienotu savai fotogrāfiju kolekcijai. Atbalstītie formāti: JPG, PNG, GIF.</p>
+        <label for="fileInput" class="upload-btn">
+            <i class="fas fa-cloud-upload-alt"></i> Izvēlēties bildi
+        </label>
+        <input type="file" id="fileInput" accept="image/*">
+        <p id="uploadStatus"></p>
+    </section>
 
-                <!-- Galerijas filtrs -->
-                <div class="filter-container">
-                    <input type="text" id="searchInput" placeholder="Meklēt attēlus pēc nosaukuma...">
-                    <select id="filterSelect">
-                        <option value="all">Visi attēli</option>
-                        <option value="recent">Pēdējās 7 dienas</option>
-                        <option value="landscape">Ainavas</option>
-                        <option value="portrait">Portreti</option>
-                    </select>
-                </div>
+    <!-- Palielinātās bildes logs -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <div class="lightbox-nav">
+            <div class="lightbox-prev" id="lightboxPrev">&#10094;</div>
+            <div class="lightbox-next" id="lightboxNext">&#10095;</div>
+        </div>
+        <img class="lightbox-content" id="lightboxImg">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
 
-                <!-- Galerijas režģis -->
-                <div class="gallery-grid" id="galleryGrid">
-                    <!-- Attēli tiks ielādēti dinamiski -->
+    <!-- Kontaktu sekcija -->
+    <section class="contact-section" id="contact">
+        <div class="contact-container">
+            <h2 class="contact-title">Sazināties ar mani</h2>
+            <p>Ja jums ir kādi jautājumi vai vēlaties sadarboties, droši sazinieties!</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>info@talva.lv</span>
                 </div>
-
-                <!-- Ielādes indikators -->
-                <div class="load-more" id="loadMore">
-                    <button class="btn-load">
-                        <i class="fas fa-spinner fa-spin"></i> Ielādēt vairāk attēlu
-                    </button>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+371 12345678</span>
                 </div>
-            </section>
-
-            <!-- Par sadaļa -->
-            <section class="about-section" id="par">
-                <div class="about-content">
-                    <h2><i class="fas fa-info-circle"></i> PAR GALERIJU</h2>
-                    <p>Šī pelēki-melnbaltā galerija ir veltīta vizuālās mākslas minimalistiskai izpausmei. Katrs attēls ir rūpīgi atlasīts, lai radītu harmoniju starp kontrastiem un toņiem.</p>
-                    <div class="features">
-                        <div class="feature">
-                            <i class="fas fa-expand-alt"></i>
-                            <h4>Palielināšana</h4>
-                            <p>Klikšķini uz jebkura attēla, lai apskatītu pilnā izmērā ar detalizētu aprakstu.</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-sort-amount-up-alt"></i>
-                            <h4>Kategorijas</h4>
-                            <p>Filtrē attēlus pēc veida, datuma vai pielāgotiem kritērijiem.</p>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <h4>Augšupielāde</h4>
-                            <p>Pievieno līdz 100 attēliem, katrs līdz 5MB lielumam.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Lielā attēla modālis -->
-        <div class="modal" id="imageModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 id="modalTitle">Attēla nosaukums</h3>
-                    <button class="close-modal" id="closeModal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="modal-image-container">
-                        <img id="modalImage" src="" alt="Palielināts attēls">
-                        <button class="nav-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
-                        <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                    <div class="modal-info">
-                        <div class="image-info">
-                            <p><i class="fas fa-calendar"></i> <strong>Pievienots:</strong> <span id="modalDate">-</span></p>
-                            <p><i class="fas fa-file-image"></i> <strong>Izmērs:</strong> <span id="modalSize">-</span></p>
-                            <p><i class="fas fa-ruler-combined"></i> <strong>Izšķirtspēja:</strong> <span id="modalResolution">-</span></p>
-                        </div>
-                        <div class="image-description">
-                            <h4><i class="fas fa-align-left"></i> Apraksts</h4>
-                            <p id="modalDescription">Šim attēlam nav pievienota apraksta.</p>
-                        </div>
-                        <div class="modal-actions">
-                            <button class="btn-action" id="downloadBtn">
-                                <i class="fas fa-download"></i> Lejupielādēt
-                            </button>
-                            <button class="btn-action" id="shareBtn">
-                                <i class="fas fa-share-alt"></i> Kopīgot
-                            </button>
-                            <button class="btn-action" id="editBtn">
-                                <i class="fas fa-edit"></i> Rediģēt
-                            </button>
-                        </div>
-                    </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Rīga, Latvija</span>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Kontaktu sadaļa -->
-        <footer class="footer" id="kontakti">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-camera-retro"></i>
-                    <h3>GreyScale Gallery</h3>
-                    <p>Minimalistiska attēlu kolekcija</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Ātrās saites</h4>
-                    <a href="#sākums">Sākums</a>
-                    <a href="#galerija">Galerija</a>
-                    <a href="#par">Par mums</a>
-                </div>
-                <div class="footer-social">
-                    <h4>Sekot mums</h4>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-pinterest"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
+    <!-- Kājene -->
+    <footer>
+        <p>TALVA - Fotogrāfiju galerija</p>
+        <p class="copyright">Visas tiesības aizsargātas &copy; <span id="currentYear"></span></p>
+    </footer>
+
+    <script>
+        // Aizpildām galeriju ar sākuma bildēm
+        const galleryContainer = document.getElementById('galleryContainer');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        const fileInput = document.getElementById('fileInput');
+        const uploadStatus = document.getElementById('uploadStatus');
+        
+        // Sākotnējās bildes ar nosaukumiem un datumiem
+        const initialImages = [
+            { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Kalnu ainava", date: "2023. gada 15. maijs" },
+            { src: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Meža takas", date: "2023. gada 3. jūnijs" },
+            { src: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Pilsētas panorama", date: "2023. gada 22. jūlijs" },
+            { src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Rīta migla", date: "2023. gada 10. augusts" },
+            { src: "https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Kokaudzes", date: "2023. gada 5. septembris" },
+            { src: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80", title: "Jūras krasts", date: "2023. gada 18. septembris" }
+        ];
+        
+        let currentImages = [...initialImages];
+        let currentImageIndex = 0;
+        
+        // Funkcija, lai renderētu galeriju
+        function renderGallery() {
+            galleryContainer.innerHTML = '';
+            
+            currentImages.forEach((image, index) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.setAttribute('data-index', index);
+                
+                galleryItem.innerHTML = `
+                    <img src="${image.src}" alt="${image.title}" class="gallery-img">
+                    <div class="img-overlay">
+                        <h3 class="img-title">${image.title}</h3>
+                        <p class="img-date">${image.date}</p>
                     </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 GreyScale Gallery. Visas tiesības aizsargātas.</p>
-                <p class="image-counter">Attēli: <span id="footerCounter">0</span>/100</p>
-            </div>
-        </footer>
-    </div>
-
-    <script src="script.js"></script>
+                `;
+                
+                galleryItem.addEventListener('click', () => openLightbox(index));
+                galleryContainer.appendChild(galleryItem);
+            });
+        }
+        
+        // Funkcija, lai atvērtu bildi lightbox
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Novērš ritināšanu aiz lightbox
+        }
+        
+        // Funkcija, lai atjauninātu lightbox saturu
+        function updateLightbox() {
+            const currentImage = currentImages[currentImageIndex];
+            lightboxImg.src = currentImage.src;
+            lightboxCaption.textContent = `${currentImage.title} - ${currentImage.date}`;
+        }
+        
+        // Funkcija, lai aizvērtu lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Funkcija, lai parādītu nākamo bildi
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % currentImages.length;
+            updateLightbox();
+        }
+        
+        // Funkcija, lai parādītu iepriekšējo bildi
+        function showPrevImage() {
+            currentImageIndex = (currentImageIndex - 1 + currentImages.length) % currentImages.length;
+            updateLightbox();
+        }
+        
+        // Pievieno klausītājus lightbox elementiem
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxNext.addEventListener('click', showNextImage);
+        lightboxPrev.addEventListener('click', showPrevImage);
+        
+        // Aizver lightbox, ja klikšķina ārpus bildes
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Pievieno klaviatūras vadību lightbox
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') showNextImage();
+            if (e.key === 'ArrowLeft') showPrevImage();
+        });
+        
+        // Bilžu augšupielādes apstrāde
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            
+            if (!file) return;
+            
+            // Pārbauda, vai fails ir attēls
+            if (!file.type.match('image.*')) {
+                uploadStatus.textContent = 'Lūdzu, izvēlies tikai attēlu failu (JPG, PNG, GIF).';
+                uploadStatus.style.color = '#d32f2f';
+                return;
+            }
+            
+            // Pārbauda faila izmēru (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                uploadStatus.textContent = 'Faila izmērs pārsniedz 5MB. Lūdzu, izvēlies mazāku bildi.';
+                uploadStatus.style.color = '#d32f2f';
+                return;
+            }
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                // Pievieno jauno bildi kolekcijai
+                const newImage = {
+                    src: event.target.result,
+                    title: `Mana bilde ${currentImages.length + 1}`,
+                    date: new Date().toLocaleDateString('lv-LV')
+                };
+                
+                currentImages.push(newImage);
+                renderGallery();
+                
+                uploadStatus.textContent = 'Bilde veiksmīgi pievienota galerijai!';
+                uploadStatus.style.color = '#388e3c';
+                
+                // Notīra input lauku
+                fileInput.value = '';
+                
+                // Pazūd statusa paziņojums pēc 3 sekundēm
+                setTimeout(() => {
+                    uploadStatus.textContent = '';
+                }, 3000);
+            };
+            
+            reader.onerror = function() {
+                uploadStatus.textContent = 'Kļūda ielādējot bildi. Lūdzu, mēģini vēlreiz.';
+                uploadStatus.style.color = '#d32f2f';
+            };
+            
+            reader.readAsDataURL(file);
+        });
+        
+        // Uzstāda kājenes gadu
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Inicializē galeriju
+        renderGallery();
+    </script>
 </body>
 </html>
