@@ -3,727 +3,1050 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Vizītkartes Ģenerators</title>
+    <title>Privātā Mājaslapa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --black: #121212;
+            --dark-gray: #1e1e1e;
+            --medium-gray: #2d2d2d;
+            --light-gray: #3d3d3d;
+            --lighter-gray: #4d4d4d;
+            --text-gray: #cccccc;
+            --white: #f5f5f5;
+            --accent-gray: #6b6b6b;
+            --border-gray: #333333;
+        }
+        
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #0d1117;
-            color: #c9d1d9;
+            background-color: var(--black);
+            color: var(--text-gray);
             line-height: 1.6;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            overflow-x: hidden;
         }
         
         .container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
         
+        /* Header & Navigation */
         header {
+            background-color: var(--dark-gray);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--white);
+        }
+        
+        .logo span {
+            color: var(--text-gray);
+            font-weight: 300;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin-left: 30px;
+        }
+        
+        .nav-menu a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--white);
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--white);
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 100px;
+            background: linear-gradient(135deg, var(--dark-gray) 0%, var(--black) 100%);
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px;
+        }
+        
+        .hero-image {
+            flex: 1;
+            min-width: 300px;
             text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid #30363d;
         }
         
-        h1 {
-            color: #58a6ff;
-            margin-bottom: 10px;
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-gray);
         }
         
-        .subtitle {
-            color: #8b949e;
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            color: var(--text-gray);
+            font-weight: 300;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--text-gray);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--light-gray);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 1px solid var(--lighter-gray);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--lighter-gray);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary {
+            background-color: var(--white);
+            color: var(--black);
+            border: 1px solid var(--white);
+            margin-right: 15px;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--text-gray);
+            border-color: var(--text-gray);
+        }
+        
+        /* Sections Common */
+        section {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--white);
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-gray);
             font-size: 1.1rem;
         }
         
-        .content {
+        /* About Section */
+        .about-content {
             display: flex;
+            align-items: center;
             flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+        
+        .about-features {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            background-color: var(--dark-gray);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-gray);
+        }
+        
+        .feature-icon {
+            background-color: var(--medium-gray);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .feature-icon i {
+            font-size: 1.5rem;
+            color: var(--white);
+        }
+        
+        .feature-text h4 {
+            color: var(--white);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        /* Portfolio Section */
+        .portfolio {
+            background-color: var(--dark-gray);
+        }
+        
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background-color: var(--medium-gray);
+            color: var(--text-gray);
+            border: none;
+            padding: 10px 20px;
+            margin: 0 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--white);
+            color: var(--black);
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 30px;
         }
         
-        .input-section {
-            flex: 1;
-            min-width: 300px;
-            background-color: #161b22;
-            border-radius: 10px;
-            padding: 25px;
-            border: 1px solid #30363d;
+        .portfolio-item {
+            background-color: var(--black);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-gray);
+            transition: transform 0.3s;
         }
         
-        .preview-section {
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .portfolio-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .portfolio-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .portfolio-item:hover .portfolio-img img {
+            transform: scale(1.05);
+        }
+        
+        .portfolio-info {
+            padding: 20px;
+        }
+        
+        .portfolio-info h3 {
+            color: var(--white);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: var(--dark-gray);
+            padding: 40px 30px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--border-gray);
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover {
+            background-color: var(--medium-gray);
+            transform: translateY(-10px);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--medium-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            transition: all 0.3s;
+        }
+        
+        .service-card:hover .service-icon {
+            background-color: var(--white);
+        }
+        
+        .service-icon i {
+            font-size: 2rem;
+            color: var(--white);
+        }
+        
+        .service-card:hover .service-icon i {
+            color: var(--black);
+        }
+        
+        .service-card h3 {
+            color: var(--white);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: var(--dark-gray);
+        }
+        
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .contact-info {
             flex: 1;
             min-width: 300px;
-            background-color: #161b22;
-            border-radius: 10px;
-            padding: 25px;
-            border: 1px solid #30363d;
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            background-color: var(--black);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-gray);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--medium-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .contact-icon i {
+            font-size: 1.2rem;
+            color: var(--white);
+        }
+        
+        .contact-text h4 {
+            color: var(--white);
+            margin-bottom: 5px;
         }
         
         .form-group {
             margin-bottom: 20px;
         }
         
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #58a6ff;
-            font-weight: 600;
-        }
-        
-        input, textarea, select {
+        .form-control {
             width: 100%;
-            padding: 10px;
-            background-color: #0d1117;
-            border: 1px solid #30363d;
+            padding: 15px;
+            background-color: var(--black);
+            border: 1px solid var(--border-gray);
             border-radius: 5px;
-            color: #c9d1d9;
+            color: var(--white);
             font-size: 1rem;
         }
         
-        textarea {
-            min-height: 120px;
+        .form-control:focus {
+            outline: none;
+            border-color: var(--white);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
             resize: vertical;
-            font-family: monospace;
         }
         
-        .color-picker {
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
             display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        
-        .color-picker input {
-            width: 60px;
-            height: 40px;
-            padding: 2px;
-        }
-        
-        .skills-input {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .skills-input input {
-            flex: 1;
-        }
-        
-        button {
-            background-color: #238636;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background-color 0.2s;
-        }
-        
-        button:hover {
-            background-color: #2ea043;
-        }
-        
-        .secondary-btn {
-            background-color: #30363d;
-            margin-left: 10px;
-        }
-        
-        .secondary-btn:hover {
-            background-color: #484f58;
-        }
-        
-        .button-group {
-            display: flex;
-            margin-top: 20px;
-        }
-        
-        .preview {
-            background-color: #0d1117;
-            padding: 20px;
-            border-radius: 10px;
-            min-height: 400px;
-            overflow: auto;
-            border: 1px solid #30363d;
-        }
-        
-        .markdown-preview {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            line-height: 1.5;
-            word-wrap: break-word;
-        }
-        
-        .visit-card {
-            background: linear-gradient(145deg, #161b22, #0d1117);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid #30363d;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
             flex-wrap: wrap;
-            gap: 20px;
+            justify-content: space-between;
+            margin-bottom: 40px;
         }
         
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid #30363d;
-            object-fit: cover;
-        }
-        
-        .user-info {
+        .footer-column {
             flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
         }
         
-        .user-name {
-            font-size: 2rem;
-            color: #58a6ff;
-            margin-bottom: 5px;
+        .footer-column h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
         }
         
-        .user-title {
-            font-size: 1.2rem;
-            color: #8b949e;
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
             margin-bottom: 10px;
         }
         
-        .user-location {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #8b949e;
-            margin-bottom: 15px;
+        .footer-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
         }
         
-        .stats {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-        
-        .stat-item {
-            text-align: center;
-            background-color: #161b22;
-            padding: 15px;
-            border-radius: 10px;
-            flex: 1;
-            min-width: 100px;
-            border: 1px solid #30363d;
-        }
-        
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #58a6ff;
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: #8b949e;
-        }
-        
-        .section-title {
-            color: #58a6ff;
-            margin: 25px 0 15px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #30363d;
-        }
-        
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .skill-tag {
-            background-color: #13233a;
-            color: #58a6ff;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid #30363d;
+        .footer-links a:hover {
+            color: var(--white);
         }
         
         .social-links {
             display: flex;
             gap: 15px;
-            margin-top: 15px;
-            flex-wrap: wrap;
+            margin-top: 20px;
         }
         
         .social-link {
-            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background-color: var(--medium-gray);
+            border-radius: 50%;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            color: #58a6ff;
+            justify-content: center;
+            color: var(--white);
             text-decoration: none;
-            padding: 8px 15px;
-            border-radius: 6px;
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            transition: all 0.2s;
+            transition: all 0.3s;
         }
         
         .social-link:hover {
-            background-color: #1f6feb;
-            color: white;
+            background-color: var(--white);
+            color: var(--black);
+            transform: translateY(-5px);
         }
         
-        footer {
+        .copyright {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #30363d;
-            color: #8b949e;
-            font-size: 0.9rem;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-gray);
+            color: var(--text-gray);
         }
         
-        .instructions {
-            background-color: #161b22;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 20px;
-            border: 1px solid #30363d;
-        }
-        
-        .instructions h3 {
-            color: #58a6ff;
-            margin-bottom: 10px;
-        }
-        
-        .instructions ol {
-            padding-left: 20px;
-        }
-        
-        .instructions li {
-            margin-bottom: 10px;
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background-color: var(--dark-gray);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 50px;
+                transition: right 0.5s;
+                border-left: 1px solid var(--border-gray);
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-menu li {
+                margin: 0 0 30px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 130px 0 80px;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
         }
         
         @media (max-width: 768px) {
-            .content {
-                flex-direction: column;
+            .hero h1 {
+                font-size: 2.3rem;
             }
             
-            .card-header {
-                flex-direction: column;
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            
+            .btn {
+                display: block;
+                margin-bottom: 15px;
+                width: 100%;
                 text-align: center;
+            }
+            
+            .btn-primary {
+                margin-right: 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>GitHub Vizītkartes Ģenerators</h1>
-            <p class="subtitle">Izveido profesionālu README.md failu savam GitHub profilam</p>
-        </header>
-        
-        <div class="content">
-            <div class="input-section">
-                <h2>Jūsu informācija</h2>
-                
-                <div class="form-group">
-                    <label for="username">GitHub lietotājvārds</label>
-                    <input type="text" id="username" placeholder="jūsu-username" value="jane-doe">
-                </div>
-                
-                <div class="form-group">
-                    <label for="name">Vārds Uzvārds</label>
-                    <input type="text" id="name" placeholder="Jānis Bērziņš" value="Jane Doe">
-                </div>
-                
-                <div class="form-group">
-                    <label for="title">Amats / Profesija</label>
-                    <input type="text" id="title" placeholder="Full-Stack izstrādātājs" value="Full-Stack Izstrādātāja">
-                </div>
-                
-                <div class="form-group">
-                    <label for="location">Atrašanās vieta</label>
-                    <input type="text" id="location" placeholder="Rīga, Latvija" value="Rīga, Latvija">
-                </div>
-                
-                <div class="form-group">
-                    <label for="bio">Īss apraksts (bio)</label>
-                    <textarea id="bio" placeholder="Īss apraksts par jums...">Esmu aizrautīga programmētāja ar pieredzi web izstrādē. Man patīk risināt sarežģītas problēmas un veidot lietotājiem draudzīgas lietojumprogrammas. Strādāju ar JavaScript, React, Node.js un Python.</textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">E-pasta adrese</label>
-                    <input type="email" id="email" placeholder="jusu@epasts.com" value="jane.doe@example.com">
-                </div>
-                
-                <div class="form-group">
-                    <label for="website">Personīgā mājaslapa</label>
-                    <input type="url" id="website" placeholder="https://jusu-majaslapa.com" value="https://janedoe.dev">
-                </div>
-                
-                <div class="form-group">
-                    <label for="github">GitHub profila links</label>
-                    <input type="url" id="github" placeholder="https://github.com/username" value="https://github.com/jane-doe">
-                </div>
-                
-                <div class="form-group">
-                    <label for="linkedin">LinkedIn profila links</label>
-                    <input type="url" id="linkedin" placeholder="https://linkedin.com/in/username" value="https://linkedin.com/in/jane-doe">
-                </div>
-                
-                <div class="form-group">
-                    <label for="twitter">Twitter / X profila links</label>
-                    <input type="url" id="twitter" placeholder="https://twitter.com/username" value="https://twitter.com/jane_doe">
-                </div>
-                
-                <div class="form-group">
-                    <label>Prasmes (pievieno ar Enter)</label>
-                    <div class="skills-input">
-                        <input type="text" id="skill-input" placeholder="Piemēram: JavaScript">
-                        <button type="button" id="add-skill">Pievienot</button>
-                    </div>
-                    <div id="skills-list" class="skills">
-                        <!-- Skills will be added here -->
-                    </div>
-                    <input type="hidden" id="skills" value="JavaScript,React,Node.js,Python,HTML,CSS,MySQL,MongoDB,Git,Docker">
-                </div>
-                
-                <div class="form-group">
-                    <label for="theme">Tēma</label>
-                    <select id="theme">
-                        <option value="github-dark">GitHub Dark</option>
-                        <option value="github-light">GitHub Light</option>
-                        <option value="blue">Zila</option>
-                        <option value="green">Zaļa</option>
-                        <option value="purple">Violeta</option>
-                    </select>
-                </div>
-                
-                <div class="button-group">
-                    <button id="generate-btn">Ģenerēt README.md</button>
-                    <button id="reset-btn" class="secondary-btn">Atiestatīt</button>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-user-secret"></i> PRIVĀTS<span>.LV</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Sākums</a></li>
+                <li><a href="#about">Par mani</a></li>
+                <li><a href="#portfolio">Portfelis</a></li>
+                <li><a href="#services">Pakalpojumi</a></li>
+                <li><a href="#contact">Kontakti</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Privātā <span>Mājaslapa</span></h1>
+                <p>Especializējuies privāto risinājumu izstrādē ar diskrētu pieeju. Dizainu, drošību un kvalitāti vienojot vienā vietā.</p>
+                <div>
+                    <a href="#contact" class="btn btn-primary">Sazināties</a>
+                    <a href="#portfolio" class="btn">Skatīt darbus</a>
                 </div>
             </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Privātais darbs">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Par Mani</h2>
+                <p>Ar vairāk nekā 10 gadu pieredzi privāto projektu izstrādē, piedāvāju individuālu pieeju katram klientam.</p>
+            </div>
             
-            <div class="preview-section">
-                <h2>Priekšskatījums</h2>
-                <div class="preview">
-                    <div class="markdown-preview" id="markdown-preview">
-                        <!-- Preview will be generated here -->
-                    </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Profesionāls pieeja privātiem projektiem</h3>
+                    <p>Specializējos diskrētu un privātu projektu izstrādē, kur konfidencialitāte un kvalitāte ir galvenās prioritātes. Katrs projekts tiek izstrādāts no jauna, ņemot vērā klienta individuālās vajadzības.</p>
+                    <p>Mans darbs balstās uz uzticamību, diskrētumu un augstākās klases rezultātiem. Strādāju ar privātiem klientiem un maziem uzņēmumiem, kuri vēlas personisku pieeju.</p>
+                    <a href="#contact" class="btn">Sazināties</a>
                 </div>
                 
-                <div class="instructions">
-                    <h3>Kā lietot?</h3>
-                    <ol>
-                        <li>Aizpildiet visus laukus ar savu informāciju</li>
-                        <li>Pievienojiet savas prasmes, nospiežot "Pievienot" vai ar Enter taustiņu</li>
-                        <li>Pielāgojiet tēmu pēc saviem ieskatiem</li>
-                        <li>Nospiediet "Ģenerēt README.md", lai ģenerētu kodu</li>
-                        <li>Kopējiet ģenerēto kodu un ielīmējiet to README.md failā savā GitHub profilā</li>
-                    </ol>
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Konfidencialitāte</h4>
+                            <p>Pilnīga informācijas aizsardzība un diskrētums visos projekta posmos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Individuāla pieeja</h4>
+                            <p>Katram klientam tiek piešķirts personīgais uzmanības un atbildības līmenis.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h4>Kvalitāte</h4>
+                            <p>Augstākās kvalitātes risinājumi ar rūpīgu detaļu izpēti un realizāciju.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
-        <footer>
-            <p>Izveidots ar ❤️ Latviešu izstrādātājiem | Šis rīks ģenerē README.md failu vizītkartes formātā jūsu GitHub profilam</p>
-        </footer>
-    </div>
+    </section>
 
-    <script>
-        // Initialize skills from hidden input
-        const skillsInput = document.getElementById('skills');
-        const skillsList = document.getElementById('skills-list');
-        const skillInput = document.getElementById('skill-input');
-        const addSkillBtn = document.getElementById('add-skill');
-        
-        // Initialize skills list
-        function initializeSkills() {
-            const skills = skillsInput.value.split(',').map(skill => skill.trim()).filter(skill => skill !== '');
-            skillsList.innerHTML = '';
-            skills.forEach(skill => {
-                addSkillToDisplay(skill);
-            });
-        }
-        
-        // Add skill to display
-        function addSkillToDisplay(skill) {
-            const skillElement = document.createElement('div');
-            skillElement.className = 'skill-tag';
-            skillElement.innerHTML = `
-                ${skill}
-                <span class="remove-skill" data-skill="${skill}" style="margin-left: 8px; cursor: pointer; color: #f85149;">×</span>
-            `;
-            skillsList.appendChild(skillElement);
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>Portfelis</h2>
+                <p>Iepazīsties ar dažiem no maniem privātajiem projektiem. Katrs projekts ir unikāls un izstrādāts pēc klienta vēlmēm.</p>
+            </div>
             
-            // Add remove functionality
-            skillElement.querySelector('.remove-skill').addEventListener('click', function() {
-                removeSkill(skill);
-            });
-        }
-        
-        // Add new skill
-        function addSkill() {
-            const skill = skillInput.value.trim();
-            if (skill) {
-                // Update hidden input
-                const currentSkills = skillsInput.value.split(',').map(s => s.trim()).filter(s => s !== '');
-                if (!currentSkills.includes(skill)) {
-                    currentSkills.push(skill);
-                    skillsInput.value = currentSkills.join(',');
-                    addSkillToDisplay(skill);
-                }
-                skillInput.value = '';
-            }
-        }
-        
-        // Remove skill
-        function removeSkill(skillToRemove) {
-            const currentSkills = skillsInput.value.split(',').map(s => s.trim()).filter(s => s !== '');
-            const updatedSkills = currentSkills.filter(skill => skill !== skillToRemove);
-            skillsInput.value = updatedSkills.join(',');
-            initializeSkills();
-        }
-        
-        // Event listeners for skills
-        addSkillBtn.addEventListener('click', addSkill);
-        skillInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                addSkill();
-            }
-        });
-        
-        // Generate markdown preview
-        function generateMarkdown() {
-            const username = document.getElementById('username').value || 'username';
-            const name = document.getElementById('name').value || 'Vārds Uzvārds';
-            const title = document.getElementById('title').value || 'Profesija';
-            const location = document.getElementById('location').value || 'Atrašanās vieta';
-            const bio = document.getElementById('bio').value || 'Īss apraksts par jums...';
-            const email = document.getElementById('email').value || '';
-            const website = document.getElementById('website').value || '';
-            const github = document.getElementById('github').value || `https://github.com/${username}`;
-            const linkedin = document.getElementById('linkedin').value || '';
-            const twitter = document.getElementById('twitter').value || '';
-            const skills = skillsInput.value.split(',').map(skill => skill.trim()).filter(skill => skill !== '');
-            const theme = document.getElementById('theme').value;
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">Visi</button>
+                <button class="filter-btn" data-filter="web">Mājaslapas</button>
+                <button class="filter-btn" data-filter="app">Lietotnes</button>
+                <button class="filter-btn" data-filter="design">Dizains</button>
+            </div>
             
-            // Generate stats (placeholder values)
-            const repos = Math.floor(Math.random() * 50) + 10;
-            const stars = Math.floor(Math.random() * 200) + 20;
-            const followers = Math.floor(Math.random() * 100) + 10;
-            const following = Math.floor(Math.random() * 50) + 10;
-            
-            // Generate markdown
-            let markdown = `# 👋 Sveiki, esmu ${name}\n\n`;
-            markdown += `### ${title}\n\n`;
-            markdown += `📍 ${location}\n\n`;
-            markdown += `${bio}\n\n`;
-            
-            markdown += `## 📊 GitHub Statistikas\n\n`;
-            markdown += `![${username}'s GitHub stats](https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&theme=${theme})\n\n`;
-            markdown += `![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&layout=compact&theme=${theme})\n\n`;
-            
-            markdown += `## 🔧 Tehnoloģijas un Rīki\n\n`;
-            skills.forEach(skill => {
-                markdown += `![${skill}](https://img.shields.io/badge/-${encodeURIComponent(skill)}-black?style=flat-square&logo=${getSkillLogo(skill)}&logoColor=white)\n`;
-            });
-            markdown += `\n`;
-            
-            markdown += `## 🌐 Sociālie tīkli\n\n`;
-            if (github) markdown += `[![GitHub](${github})](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](${github})\n`;
-            if (linkedin) markdown += `[![LinkedIn](${linkedin})](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](${linkedin})\n`;
-            if (twitter) markdown += `[![Twitter](${twitter})](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](${twitter})\n`;
-            if (email) markdown += `[![Email](mailto:${email})](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:${email})\n`;
-            if (website) markdown += `[![Website](${website})](https://img.shields.io/badge/Website-FF7139?style=for-the-badge&logo=Firefox-Browser&logoColor=white)](${website})\n`;
-            
-            markdown += `\n---\n\n`;
-            markdown += `*README.md izveidots ar [GitHub Vizītkartes Ģeneratoru](https://github.com)*\n`;
-            
-            // Update preview
-            document.getElementById('markdown-preview').textContent = markdown;
-            
-            // Generate visual preview
-            generateVisualPreview(username, name, title, location, bio, email, website, github, linkedin, twitter, skills, repos, stars, followers, following, theme);
-            
-            // Create download link
-            createDownloadLink(markdown, username);
-        }
-        
-        // Generate visual preview
-        function generateVisualPreview(username, name, title, location, bio, email, website, github, linkedin, twitter, skills, repos, stars, followers, following, theme) {
-            const preview = document.getElementById('markdown-preview');
-            
-            // Create visual card
-            let cardHTML = `
-            <div class="visit-card">
-                <div class="card-header">
-                    <img src="https://avatars.githubusercontent.com/${username}?s=200" alt="${name}" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&size=200&background=161b22&color=58a6ff'">
-                    <div class="user-info">
-                        <h1 class="user-name">${name}</h1>
-                        <h2 class="user-title">${title}</h2>
-                        <div class="user-location">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>${location}</span>
-                        </div>
-                        <p>${bio}</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="web">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Privāta mājaslapa">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Privātā uzņēmuma mājaslapa</h3>
+                        <p>Pilnībā pārveidota mājaslapa ar modernu dizainu un uzlabotu funkcionalitāti.</p>
                     </div>
                 </div>
                 
-                <div class="stats">
-                    <div class="stat-item">
-                        <div class="stat-value">${repos}</div>
-                        <div class="stat-label">Repozitoriji</div>
+                <div class="portfolio-item" data-category="app">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Mobilā lietotne">
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-value">${stars}</div>
-                        <div class="stat-label">Zvaigznes</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">${followers}</div>
-                        <div class="stat-label">Sekotāji</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">${following}</div>
-                        <div class="stat-label">Seko</div>
+                    <div class="portfolio-info">
+                        <h3>Personīgā finansu lietotne</h3>
+                        <p>Android un iOS lietotne privātai finansu pārvaldībai ar drošiem datiem.</p>
                     </div>
                 </div>
                 
-                <h3 class="section-title">Tehnoloģijas un Rīki</h3>
-                <div class="skills">
-            `;
-            
-            skills.forEach(skill => {
-                cardHTML += `<div class="skill-tag">${skill}</div>`;
-            });
-            
-            cardHTML += `
-                </div>
-                
-                <h3 class="section-title">Sazinies ar mani</h3>
-                <div class="social-links">
-            `;
-            
-            if (email) cardHTML += `<a href="mailto:${email}" class="social-link"><i class="fas fa-envelope"></i> E-pasts</a>`;
-            if (website) cardHTML += `<a href="${website}" target="_blank" class="social-link"><i class="fas fa-globe"></i> Mājaslapa</a>`;
-            if (github) cardHTML += `<a href="${github}" target="_blank" class="social-link"><i class="fab fa-github"></i> GitHub</a>`;
-            if (linkedin) cardHTML += `<a href="${linkedin}" target="_blank" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>`;
-            if (twitter) cardHTML += `<a href="${twitter}" target="_blank" class="social-link"><i class="fab fa-twitter"></i> Twitter</a>`;
-            
-            cardHTML += `
+                <div class="portfolio-item" data-category="design">
+                    <div class="portfolio-img">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w-800&q=80" alt="Identitātes dizains">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Korporatīvā identitāte</h3>
+                        <p>Pilnīga identitātes izstrāde privātam uzņēmumam, ieskaitot logotipu un zīmolu.</p>
+                    </div>
                 </div>
             </div>
-            `;
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Pakalpojumi</h2>
+                <p>Piedāvāju plašu pakalpojumu klāstu privātiem klientiem, kas mekļē kvalitatīvus un diskrētus risinājumus.</p>
+            </div>
             
-            preview.innerHTML = cardHTML;
-        }
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Web Izstrāde</h3>
+                    <p>Individuālu mājaslapu izstrāde ar modernu dizainu un responsīvu pieeju.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobilo Lietotņu Izstrāde</h3>
+                    <p>Android un iOS lietotņu izstrāde ar uzsvaru uz lietojamību un drošību.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Drošības Konsultācijas</h3>
+                    <p>Digitālo risinājumu drošības novērtēšana un uzlabošana privātiem klientiem.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3>Grafiskais Dizains</h3>
+                    <p>Profesionāls grafiskais dizains logo, zīmolam un citām vajadzībām.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Digitālā Detektīvdarbs</h3>
+                    <p>Informācijas meklēšana un analīze digitālajā vidē ar diskrētu pieeju.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>Privātie Konsultāciju Pakalpojumi</h3>
+                    <p>Individuālas konsultācijas par personīgo digitālo drošību un konfidencialitāti.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kontakti</h2>
+                <p>Sazinieties ar mani, lai apspriestu jūsu privātā projekta idejas un iespējas.</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Atrašanās vieta</h4>
+                            <p>Rīga, Latvija<br>Privātiem klientiem</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>E-pasts</h4>
+                            <p>info@privats.lv</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Telefons</h4>
+                            <p>+371 2XXXXXXX<br>(pieejams pēc iepriekšēja vienošanās)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Jūsu vārds" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Jūsu e-pasts" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Tēma">
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Jūsu ziņojums" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Nosūtīt ziņojumu</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PRIVĀTS.LV</h3>
+                    <p>Profesionāli privātie risinājumi digitālajā vidē. Konfidencialitāte un kvalitāte ir mūsu galvenās prioritātes.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Ātrās saites</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Sākums</a></li>
+                        <li><a href="#about">Par mani</a></li>
+                        <li><a href="#portfolio">Portfelis</a></li>
+                        <li><a href="#services">Pakalpojumi</a></li>
+                        <li><a href="#contact">Kontakti</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Pakalpojumi</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Web Izstrāde</a></li>
+                        <li><a href="#">Mobilo Lietotņu Izstrāde</a></li>
+                        <li><a href="#">Drošības Konsultācijas</a></li>
+                        <li><a href="#">Privātie Konsultāciju Pakalpojumi</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Sazināties</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@privats.lv">info@privats.lv</a></li>
+                        <li><a href="#">+371 2XXXXXXX</a></li>
+                        <li><a href="#">Rīga, Latvija</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> PRIVĀTS.LV. Visas tiesības aizsargātas. | Izstrādāts ar diskrētu pieeju</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
         
-        // Get logo for skill badge
-        function getSkillLogo(skill) {
-            const skillLogos = {
-                'JavaScript': 'javascript',
-                'React': 'react',
-                'Node.js': 'node.js',
-                'Python': 'python',
-                'HTML': 'html5',
-                'CSS': 'css3',
-                'MySQL': 'mysql',
-                'MongoDB': 'mongodb',
-                'Git': 'git',
-                'Docker': 'docker',
-                'Java': 'java',
-                'PHP': 'php',
-                'Ruby': 'ruby',
-                'C++': 'cplusplus',
-                'C#': 'csharp',
-                'TypeScript': 'typescript',
-                'Vue.js': 'vue.js',
-                'Angular': 'angular',
-                'Swift': 'swift',
-                'Kotlin': 'kotlin',
-                'Go': 'go'
-            };
-            
-            return skillLogos[skill] || 'github';
-        }
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
         
-        // Create download link for markdown
-        function createDownloadLink(markdown, username) {
-            // Remove existing download button if exists
-            const existingBtn = document.getElementById('download-btn');
-            if (existingBtn) existingBtn.remove();
-            
-            // Create download button
-            const downloadBtn = document.createElement('button');
-            downloadBtn.id = 'download-btn';
-            downloadBtn.textContent = 'Lejupielādēt README.md';
-            downloadBtn.style.marginTop = '20px';
-            downloadBtn.style.width = '100%';
-            
-            downloadBtn.addEventListener('click', function() {
-                const blob = new Blob([markdown], { type: 'text/markdown' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'README.md';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
-            
-            document.querySelector('.preview-section').appendChild(downloadBtn);
-        }
+        });
         
-        // Reset form
-        function resetForm() {
-            document.getElementById('username').value = 'jane-doe';
-            document.getElementById('name').value = 'Jane Doe';
-            document.getElementById('title').value = 'Full-Stack Izstrādātāja';
-            document.getElementById('location').value = 'Rīga, Latvija';
-            document.getElementById('bio').value = 'Esmu aizrautīga programmētāja ar pieredzi web izstrādē. Man patīk risināt sarežģītas problēmas un veidot lietotājiem draudzīgas lietojumprogrammas. Strādāju ar JavaScript, React, Node.js un Python.';
-            document.getElementById('email').value = 'jane.doe@example.com';
-            document.getElementById('website').value = 'https://janedoe.dev';
-            document.getElementById('github').value = 'https://github.com/jane-doe';
-            document.getElementById('linkedin').value = 'https://linkedin.com/in/jane-doe';
-            document.getElementById('twitter').value = 'https://twitter.com/jane_doe';
-            document.getElementById('skills').value = 'JavaScript,React,Node.js,Python,HTML,CSS,MySQL,MongoDB,Git,Docker';
-            document.getElementById('theme').value = 'github-dark';
-            
-            initializeSkills();
-            generateMarkdown();
-        }
+        // Portfolio filtering
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
         
-        // Event listeners
-        document.getElementById('generate-btn').addEventListener('click', generateMarkdown);
-        document.getElementById('reset-btn').addEventListener('click', resetForm);
-        
-        // Generate on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeSkills();
-            generateMarkdown();
-            
-            // Add change listeners to all inputs
-            const inputs = document.querySelectorAll('input, textarea, select');
-            inputs.forEach(input => {
-                input.addEventListener('input', generateMarkdown);
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                portfolioItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
             });
-            document.getElementById('theme').addEventListener('change', generateMarkdown);
+        });
+        
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Paldies par jūsu ziņojumu! Es ar jums sazināšos drīz.');
+            contactForm.reset();
+        });
+        
+        // Update copyright year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     </script>
 </body>
