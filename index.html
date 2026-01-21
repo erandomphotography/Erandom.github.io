@@ -3,35 +3,234 @@
 <html lang="lv">
 <head>
     <meta charset="UTF-8">
-    <title>Edgars Kotovičs – personīgā vizītkarte</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dabas Fotogrāfija - Latvijas daba</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
 </head>
 <body>
+    <!-- NAVIGĀCIJA -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-tree"></i>
+                <span>DabaLV</span>
+            </a>
+            <div class="nav-links">
+                <a href="#home" class="active"><i class="fas fa-home"></i> Sākums</a>
+                <a href="#gallery"><i class="fas fa-images"></i> Galerija</a>
+                <a href="#about"><i class="fas fa-info-circle"></i> Par mani</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Kontakti</a>
+            </div>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
 
-<div class="card">
-    <img src="foto.jpg" alt="Profila foto" class="avatar">
+    <!-- HERO SADAĻA -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Latvijas dabas skaistums</h1>
+            <p class="hero-subtitle">Aizraujošas ainavas, brīnišķīgi dzīvnieki un burvīgi meži</p>
+            <a href="#gallery" class="hero-btn">Apskatīt galeriju <i class="fas fa-arrow-down"></i></a>
+        </div>
+        <div class="hero-overlay"></div>
+    </section>
 
-    <h1>Edgars Kotovičs</h1>
-    <p class="title">Personīgā vizītkarte</p>
+    <!-- KATEGORIJU FILTRI -->
+    <section class="filters-section" id="gallery">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-filter"></i> Foto galerija</h2>
+            <p class="section-subtitle">Atlasiet kategoriju vai apskatiet visus foto</p>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-layer-group"></i> Visas fotos
+                </button>
+                <button class="filter-btn" data-filter="trees">
+                    <i class="fas fa-tree"></i> Koki
+                </button>
+                <button class="filter-btn" data-filter="birds">
+                    <i class="fas fa-dove"></i> Putni
+                </button>
+                <button class="filter-btn" data-filter="streets">
+                    <i class="fas fa-road"></i> Ielas daba
+                </button>
+                <button class="filter-btn" data-filter="forest">
+                    <i class="fas fa-hiking"></i> Meži
+                </button>
+                <button class="filter-btn" data-filter="water">
+                    <i class="fas fa-water"></i> Ūdeņi
+                </button>
+                <button class="filter-btn" data-filter="macro">
+                    <i class="fas fa-search"></i> Makro
+                </button>
+            </div>
 
-    <p class="desc">
-        Sveiki! Šī ir mana personīgā mājaslapa – vizītkarte.
-        Šeit varat atrast manu kontaktinformāciju.
-    </p>
+            <!-- BILŽU SKAITĪTĀJS -->
+            <div class="counter">
+                <span id="photo-count">12</span> fotogrāfijas
+                <span class="category-name">visās kategorijās</span>
+            </div>
+        </div>
+    </section>
 
-    <div class="contacts">
-        <p>📧 E-pasts: <a href="mailto:edgars@email.lv">edgars@email.lv</a></p>
-        <p>📞 Tālrunis: +371 XXXXXXXX</p>
-        <p>📍 Latvija</p>
+    <!-- GALERIJA - MASONRY GRID -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Fotogrāfijas tiks ievietotas ar JavaScript -->
+                <!-- Šeit ir 12 piemēra bildes, aizstāj ar savām! -->
+            </div>
+            
+            <!-- IELĀDĒT VAIRĀK POGAS -->
+            <div class="load-more-container">
+                <button id="loadMoreBtn" class="load-more-btn">
+                    <i class="fas fa-plus"></i> Ielādēt vairāk foto
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAR MANI SADAĻA -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="image-frame">
+                        <div class="image-placeholder">
+                            <i class="fas fa-camera"></i>
+                            <p>Jūsu foto šeit</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <h2 class="section-title"><i class="fas fa-user"></i> Par fotogrāfu</h2>
+                    <p>Sveiki! Esmu dabas cienītājs un fotogrāfs no Latvijas. Mans mērķis ir saglabāt un parādīt mūsu dabas daudzveidības skaistumu.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Lokācijas</h3>
+                                <p>Fotografēju visā Latvijā</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-camera-retro"></i>
+                            <div>
+                                <h3>Aprīkojums</h3>
+                                <p>Profesionāla fotokamera</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <h3>Pieredze</h3>
+                                <p>5+ gadi dabas fotogrāfijā</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="about-btn">Sazināties <i class="fas fa-paper-plane"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAKTI -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-envelope"></i> Sazināties</h2>
+            <p class="section-subtitle">Vai vēlaties sadarbību vai padomus par dabas fotogrāfiju?</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>E-pasts</h3>
+                            <p>info@dabalv.lv</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Telefons</h3>
+                            <p>+371 2XXXXXXX</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Atrašanās vieta</h3>
+                            <p>Latvija</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-flickr"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contactForm">
+                    <input type="text" placeholder="Jūsu vārds" required>
+                    <input type="email" placeholder="E-pasta adrese" required>
+                    <textarea placeholder="Jūsu ziņa..." rows="5" required></textarea>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i> Sūtīt ziņu
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-tree"></i> DabaLV
+                </div>
+                <p class="footer-text">Dabas skaistums ir mūsu kopīgs mantojums. Cienīsim to un saglabāsim nākamajām paaudzēm.</p>
+                
+                <div class="footer-links">
+                    <a href="#home">Sākums</a>
+                    <a href="#gallery">Galerija</a>
+                    <a href="#about">Par mani</a>
+                    <a href="#contact">Kontakti</a>
+                </div>
+                
+                <p class="copyright">
+                    &copy; 2023 Dabas Fotogrāfija Latvijā. Visas tiesības aizsargātas.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL LOGS (BILŽU APSKATĪŠANAI) -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modalImage" src="" alt="">
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+                <div class="modal-meta">
+                    <span><i class="fas fa-calendar"></i> <span id="modalDate"></span></span>
+                    <span><i class="fas fa-map-marker-alt"></i> <span id="modalLocation"></span></span>
+                    <span><i class="fas fa-tags"></i> <span id="modalTags"></span></span>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="links">
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
-        <a href="#">LinkedIn</a>
-    </div>
-</div>
-
+    <!-- SCRIPTS -->
+    <script src="script.js"></script>
 </body>
 </html>
