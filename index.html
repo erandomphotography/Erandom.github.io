@@ -3,1051 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erandomphotography</title>
+    <title>Mākslas Galerija | Pelēki Melnbalts</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --black: #121212;
-            --dark-gray: #1e1e1e;
-            --medium-gray: #2d2d2d;
-            --light-gray: #3d3d3d;
-            --lighter-gray: #4d4d4d;
-            --text-gray: #cccccc;
-            --white: #f5f5f5;
-            --accent-gray: #6b6b6b;
-            --border-gray: #333333;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--black);
-            color: var(--text-gray);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header & Navigation */
-        header {
-            background-color: var(--dark-gray);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            border-bottom: 1px solid var(--border-gray);
-        }
-        
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--white);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo i {
-            margin-right: 10px;
-            color: var(--white);
-        }
-        
-        .logo span {
-            color: var(--text-gray);
-            font-weight: 300;
-        }
-        
-        .nav-menu {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-menu li {
-            margin-left: 30px;
-        }
-        
-        .nav-menu a {
-            color: var(--text-gray);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.1rem;
-            transition: color 0.3s;
-            position: relative;
-        }
-        
-        .nav-menu a:hover {
-            color: var(--white);
-        }
-        
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--white);
-            transition: width 0.3s;
-        }
-        
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 150px 0 100px;
-            background: linear-gradient(135deg, var(--dark-gray) 0%, var(--black) 100%);
-            border-bottom: 1px solid var(--border-gray);
-        }
-        
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        
-        .hero-text {
-            flex: 1;
-            min-width: 300px;
-            padding-right: 30px;
-        }
-        
-        .hero-image {
-            flex: 1;
-            min-width: 300px;
-            text-align: center;
-        }
-        
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid var(--border-gray);
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            color: var(--white);
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero h1 span {
-            color: var(--text-gray);
-            font-weight: 300;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--text-gray);
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: var(--light-gray);
-            color: var(--white);
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            border: 1px solid var(--lighter-gray);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: var(--lighter-gray);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn-primary {
-            background-color: var(--white);
-            color: var(--black);
-            border: 1px solid var(--white);
-            margin-right: 15px;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--text-gray);
-            border-color: var(--text-gray);
-        }
-        
-        /* Sections Common */
-        section {
-            padding: 100px 0;
-            border-bottom: 1px solid var(--border-gray);
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
-            font-size: 2.5rem;
-            color: var(--white);
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--white);
-        }
-        
-        .section-title p {
-            max-width: 700px;
-            margin: 0 auto;
-            color: var(--text-gray);
-            font-size: 1.1rem;
-        }
-        
-        /* About Section */
-        .about-content {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-        
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .about-text h3 {
-            font-size: 1.8rem;
-            color: var(--white);
-            margin-bottom: 20px;
-        }
-        
-        .about-features {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .feature-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 30px;
-            background-color: var(--dark-gray);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border-gray);
-        }
-        
-        .feature-icon {
-            background-color: var(--medium-gray);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            flex-shrink: 0;
-        }
-        
-        .feature-icon i {
-            font-size: 1.5rem;
-            color: var(--white);
-        }
-        
-        .feature-text h4 {
-            color: var(--white);
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-        
-        /* Portfolio Section */
-        .portfolio {
-            background-color: var(--dark-gray);
-        }
-        
-        .portfolio-filters {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-        
-        .filter-btn {
-            background-color: var(--medium-gray);
-            color: var(--text-gray);
-            border: none;
-            padding: 10px 20px;
-            margin: 0 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        
-        .filter-btn.active, .filter-btn:hover {
-            background-color: var(--white);
-            color: var(--black);
-        }
-        
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .portfolio-item {
-            background-color: var(--black);
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-gray);
-            transition: transform 0.3s;
-        }
-        
-        .portfolio-item:hover {
-            transform: translateY(-10px);
-        }
-        
-        .portfolio-img {
-            height: 200px;
-            overflow: hidden;
-        }
-        
-        .portfolio-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-        
-        .portfolio-item:hover .portfolio-img img {
-            transform: scale(1.05);
-        }
-        
-        .portfolio-info {
-            padding: 20px;
-        }
-        
-        .portfolio-info h3 {
-            color: var(--white);
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-        
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-        
-        .service-card {
-            background-color: var(--dark-gray);
-            padding: 40px 30px;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid var(--border-gray);
-            transition: all 0.3s;
-        }
-        
-        .service-card:hover {
-            background-color: var(--medium-gray);
-            transform: translateY(-10px);
-        }
-        
-        .service-icon {
-            width: 80px;
-            height: 80px;
-            background-color: var(--medium-gray);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            transition: all 0.3s;
-        }
-        
-        .service-card:hover .service-icon {
-            background-color: var(--white);
-        }
-        
-        .service-icon i {
-            font-size: 2rem;
-            color: var(--white);
-        }
-        
-        .service-card:hover .service-icon i {
-            color: var(--black);
-        }
-        
-        .service-card h3 {
-            color: var(--white);
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-        
-        /* Contact Section */
-        .contact {
-            background-color: var(--dark-gray);
-        }
-        
-        .contact-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-        
-        .contact-info {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .contact-form {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-            background-color: var(--black);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border-gray);
-        }
-        
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background-color: var(--medium-gray);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            flex-shrink: 0;
-        }
-        
-        .contact-icon i {
-            font-size: 1.2rem;
-            color: var(--white);
-        }
-        
-        .contact-text h4 {
-            color: var(--white);
-            margin-bottom: 5px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 15px;
-            background-color: var(--black);
-            border: 1px solid var(--border-gray);
-            border-radius: 5px;
-            color: var(--white);
-            font-size: 1rem;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--white);
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--black);
-            padding: 60px 0 30px;
-        }
-        
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column {
-            flex: 1;
-            min-width: 250px;
-            margin-bottom: 30px;
-        }
-        
-        .footer-column h3 {
-            color: var(--white);
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: var(--text-gray);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links a:hover {
-            color: var(--white);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background-color: var(--medium-gray);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        
-        .social-link:hover {
-            background-color: var(--white);
-            color: var(--black);
-            transform: translateY(-5px);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid var(--border-gray);
-            color: var(--text-gray);
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .nav-menu {
-                position: fixed;
-                top: 70px;
-                right: -100%;
-                width: 80%;
-                height: calc(100vh - 70px);
-                background-color: var(--dark-gray);
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 50px;
-                transition: right 0.5s;
-                border-left: 1px solid var(--border-gray);
-            }
-            
-            .nav-menu.active {
-                right: 0;
-            }
-            
-            .nav-menu li {
-                margin: 0 0 30px 0;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero {
-                padding: 130px 0 80px;
-            }
-            
-            section {
-                padding: 80px 0;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.3rem;
-            }
-            
-            .hero-text {
-                padding-right: 0;
-                margin-bottom: 40px;
-            }
-            
-            .btn {
-                display: block;
-                margin-bottom: 15px;
-                width: 100%;
-                text-align: center;
-            }
-            
-            .btn-primary {
-                margin-right: 0;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="container header-container">
-            <a href="#" class="logo">
-                <i class="fas fa-user-secret"></i> Erandom<span>.LV</span>
-            </a>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home">Sākums</a></li>
-                <li><a href="#about">Par mani</a></li>
-                <li><a href="#portfolio">Portfelis</a></li>
-                <li><a href="#services">Pakalpojumi</a></li>
-                <li><a href="#contact">Kontakti</a></li>
+    <div class="container">
+        <!-- Navigācija -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-camera-retro"></i>
+                <span>GALERIJA</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#sākums" class="active">Sākums</a></li>
+                <li><a href="#galerija">Galerija</a></li>
+                <li><a href="#par">Par</a></li>
+                <li><a href="#kontakti">Kontakti</a></li>
             </ul>
-        </div>
-    </header>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <h1>Privātā <span>Mājaslapa</span></h1>
-                <p>Especializējuies privāto risinājumu izstrādē ar diskrētu pieeju. Dizainu, drošību un kvalitāti vienojot vienā vietā.</p>
-                <div>
-                    <a href="#contact" class="btn btn-primary">Sazināties</a>
-                    <a href="#portfolio" class="btn">Skatīt darbus</a>
+        <!-- Hero sadaļa -->
+        <header class="hero" id="sākums">
+            <div class="hero-content">
+                <h1 class="hero-title">VIZIO<span class="highlight">NĀRĀ</span> FOTOGRAFIJU GALERIJA</h1>
+                <p class="hero-subtitle">Pelēku toņu harmonija no 1 līdz 100 attēliem</p>
+                <a href="#galerija" class="btn-primary">Apskatīt Galeriju <i class="fas fa-arrow-down"></i></a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" id="total-images">0</span>
+                    <span class="stat-label">Kopējais attēlu skaits</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100</span>
+                    <span class="stat-label">Maksimālā ietilpība</span>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Privātais darbs">
-            </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>Par Mani</h2>
-                <p>Ar vairāk nekā 10 gadu pieredzi privāto projektu izstrādē, piedāvāju individuālu pieeju katram klientam.</p>
-            </div>
-            
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Profesionāls pieeja privātiem projektiem</h3>
-                    <p>Specializējos diskrētu un privātu projektu izstrādē, kur konfidencialitāte un kvalitāte ir galvenās prioritātes. Katrs projekts tiek izstrādāts no jauna, ņemot vērā klienta individuālās vajadzības.</p>
-                    <p>Mans darbs balstās uz uzticamību, diskrētumu un augstākās klases rezultātiem. Strādāju ar privātiem klientiem un maziem uzņēmumiem, kuri vēlas personisku pieeju.</p>
-                    <a href="#contact" class="btn">Sazināties</a>
+        <!-- Galvenā galerija -->
+        <main class="main-content">
+            <section class="gallery-section" id="galerija">
+                <div class="section-header">
+                    <h2><i class="fas fa-images"></i> ATTĒLU GALERIJA</h2>
+                    <p class="section-subtitle">Klikšķini uz attēliem, lai palielinātu</p>
                 </div>
-                
-                <div class="about-features">
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="feature-text">
-                            <h4>Konfidencialitāte</h4>
-                            <p>Pilnīga informācijas aizsardzība un diskrētums visos projekta posmos.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="feature-text">
-                            <h4>Individuāla pieeja</h4>
-                            <p>Katram klientam tiek piešķirts personīgais uzmanības un atbildības līmenis.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-medal"></i>
-                        </div>
-                        <div class="feature-text">
-                            <h4>Kvalitāte</h4>
-                            <p>Augstākās kvalitātes risinājumi ar rūpīgu detaļu izpēti un realizāciju.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Portfolio Section -->
-    <section class="portfolio" id="portfolio">
-        <div class="container">
-            <div class="section-title">
-                <h2>Portfelis</h2>
-                <p>Iepazīsties ar dažiem no maniem privātajiem projektiem. Katrs projekts ir unikāls un izstrādāts pēc klienta vēlmēm.</p>
-            </div>
-            
-            <div class="portfolio-filters">
-                <button class="filter-btn active" data-filter="all">Visi</button>
-                <button class="filter-btn" data-filter="web">Mājaslapas</button>
-                <button class="filter-btn" data-filter="app">Lietotnes</button>
-                <button class="filter-btn" data-filter="design">Dizains</button>
-            </div>
-            
-            <div class="portfolio-grid">
-                <div class="portfolio-item" data-category="web">
-                    <div class="portfolio-img">
-                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Privāta mājaslapa">
+                <!-- Augšupielādes forma -->
+                <div class="upload-container">
+                    <div class="upload-box" id="uploadBox">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Pievienot attēlus</h3>
+                        <p>Velciet failus šeit vai klikšķiniet, lai atlasītu</p>
+                        <input type="file" id="imageUpload" accept="image/*" multiple>
+                        <div class="upload-progress" id="uploadProgress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <p class="upload-info">Atbalstītie formāti: JPG, PNG, WebP (maks. 5MB)</p>
                     </div>
-                    <div class="portfolio-info">
-                        <h3>Privātā uzņēmuma mājaslapa</h3>
-                        <p>Pilnībā pārveidota mājaslapa ar modernu dizainu un uzlabotu funkcionalitāti.</p>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item" data-category="app">
-                    <div class="portfolio-img">
-                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Mobilā lietotne">
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>Personīgā finansu lietotne</h3>
-                        <p>Android un iOS lietotne privātai finansu pārvaldībai ar drošiem datiem.</p>
+                    <div class="upload-controls">
+                        <button class="btn-secondary" id="sortNewest">
+                            <i class="fas fa-sort-amount-down"></i> Jaunākie
+                        </button>
+                        <button class="btn-secondary" id="sortRandom">
+                            <i class="fas fa-random"></i> Jaukt
+                        </button>
+                        <button class="btn-secondary" id="clearGallery">
+                            <i class="fas fa-trash"></i> Notīrīt
+                        </button>
                     </div>
                 </div>
-                
-                <div class="portfolio-item" data-category="design">
-                    <div class="portfolio-img">
-                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w-800&q=80" alt="Identitātes dizains">
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>Korporatīvā identitāte</h3>
-                        <p>Pilnīga identitātes izstrāde privātam uzņēmumam, ieskaitot logotipu un zīmolu.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Services Section -->
-    <section id="services">
-        <div class="container">
-            <div class="section-title">
-                <h2>Pakalpojumi</h2>
-                <p>Piedāvāju plašu pakalpojumu klāstu privātiem klientiem, kas mekļē kvalitatīvus un diskrētus risinājumus.</p>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h3>Web Izstrāde</h3>
-                    <p>Individuālu mājaslapu izstrāde ar modernu dizainu un responsīvu pieeju.</p>
+                <!-- Galerijas filtrs -->
+                <div class="filter-container">
+                    <input type="text" id="searchInput" placeholder="Meklēt attēlus pēc nosaukuma...">
+                    <select id="filterSelect">
+                        <option value="all">Visi attēli</option>
+                        <option value="recent">Pēdējās 7 dienas</option>
+                        <option value="landscape">Ainavas</option>
+                        <option value="portrait">Portreti</option>
+                    </select>
                 </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Mobilo Lietotņu Izstrāde</h3>
-                    <p>Android un iOS lietotņu izstrāde ar uzsvaru uz lietojamību un drošību.</p>
+
+                <!-- Galerijas režģis -->
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Attēli tiks ielādēti dinamiski -->
                 </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Drošības Konsultācijas</h3>
-                    <p>Digitālo risinājumu drošības novērtēšana un uzlabošana privātiem klientiem.</p>
+
+                <!-- Ielādes indikators -->
+                <div class="load-more" id="loadMore">
+                    <button class="btn-load">
+                        <i class="fas fa-spinner fa-spin"></i> Ielādēt vairāk attēlu
+                    </button>
                 </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-palette"></i>
+            </section>
+
+            <!-- Par sadaļa -->
+            <section class="about-section" id="par">
+                <div class="about-content">
+                    <h2><i class="fas fa-info-circle"></i> PAR GALERIJU</h2>
+                    <p>Šī pelēki-melnbaltā galerija ir veltīta vizuālās mākslas minimalistiskai izpausmei. Katrs attēls ir rūpīgi atlasīts, lai radītu harmoniju starp kontrastiem un toņiem.</p>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-expand-alt"></i>
+                            <h4>Palielināšana</h4>
+                            <p>Klikšķini uz jebkura attēla, lai apskatītu pilnā izmērā ar detalizētu aprakstu.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-sort-amount-up-alt"></i>
+                            <h4>Kategorijas</h4>
+                            <p>Filtrē attēlus pēc veida, datuma vai pielāgotiem kritērijiem.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h4>Augšupielāde</h4>
+                            <p>Pievieno līdz 100 attēliem, katrs līdz 5MB lielumam.</p>
+                        </div>
                     </div>
-                    <h3>Grafiskais Dizains</h3>
-                    <p>Profesionāls grafiskais dizains logo, zīmolam un citām vajadzībām.</p>
                 </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Digitālā Detektīvdarbs</h3>
-                    <p>Informācijas meklēšana un analīze digitālajā vidē ar diskrētu pieeju.</p>
+            </section>
+        </main>
+
+        <!-- Lielā attēla modālis -->
+        <div class="modal" id="imageModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Attēla nosaukums</h3>
+                    <button class="close-modal" id="closeModal">&times;</button>
                 </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-user-secret"></i>
+                <div class="modal-body">
+                    <div class="modal-image-container">
+                        <img id="modalImage" src="" alt="Palielināts attēls">
+                        <button class="nav-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="nav-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
                     </div>
-                    <h3>Privātie Konsultāciju Pakalpojumi</h3>
-                    <p>Individuālas konsultācijas par personīgo digitālo drošību un konfidencialitāti.</p>
+                    <div class="modal-info">
+                        <div class="image-info">
+                            <p><i class="fas fa-calendar"></i> <strong>Pievienots:</strong> <span id="modalDate">-</span></p>
+                            <p><i class="fas fa-file-image"></i> <strong>Izmērs:</strong> <span id="modalSize">-</span></p>
+                            <p><i class="fas fa-ruler-combined"></i> <strong>Izšķirtspēja:</strong> <span id="modalResolution">-</span></p>
+                        </div>
+                        <div class="image-description">
+                            <h4><i class="fas fa-align-left"></i> Apraksts</h4>
+                            <p id="modalDescription">Šim attēlam nav pievienota apraksta.</p>
+                        </div>
+                        <div class="modal-actions">
+                            <button class="btn-action" id="downloadBtn">
+                                <i class="fas fa-download"></i> Lejupielādēt
+                            </button>
+                            <button class="btn-action" id="shareBtn">
+                                <i class="fas fa-share-alt"></i> Kopīgot
+                            </button>
+                            <button class="btn-action" id="editBtn">
+                                <i class="fas fa-edit"></i> Rediģēt
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Kontakti</h2>
-                <p>Sazinieties ar mani, lai apspriestu jūsu privātā projekta idejas un iespējas.</p>
-            </div>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Atrašanās vieta</h4>
-                            <p>Rīga, Latvija<br>Privātiem klientiem</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>E-pasts</h4>
-                            <p>info@privats.lv</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Telefons</h4>
-                            <p>+371 2XXXXXXX<br>(pieejams pēc iepriekšēja vienošanās)</p>
-                        </div>
-                    </div>
-                    
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Jūsu vārds" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Jūsu e-pasts" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Tēma">
-                        </div>
-                        
-                        <div class="form-group">
-                            <textarea class="form-control" placeholder="Jūsu ziņojums" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary">Nosūtīt ziņojumu</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
+        <!-- Kontaktu sadaļa -->
+        <footer class="footer" id="kontakti">
             <div class="footer-content">
-                <div class="footer-column">
-                    <h3>PRIVĀTS.LV</h3>
-                    <p>Profesionāli privātie risinājumi digitālajā vidē. Konfidencialitāte un kvalitāte ir mūsu galvenās prioritātes.</p>
+                <div class="footer-logo">
+                    <i class="fas fa-camera-retro"></i>
+                    <h3>GreyScale Gallery</h3>
+                    <p>Minimalistiska attēlu kolekcija</p>
                 </div>
-                
-                <div class="footer-column">
-                    <h3>Ātrās saites</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Sākums</a></li>
-                        <li><a href="#about">Par mani</a></li>
-                        <li><a href="#portfolio">Portfelis</a></li>
-                        <li><a href="#services">Pakalpojumi</a></li>
-                        <li><a href="#contact">Kontakti</a></li>
-                    </ul>
+                <div class="footer-links">
+                    <h4>Ātrās saites</h4>
+                    <a href="#sākums">Sākums</a>
+                    <a href="#galerija">Galerija</a>
+                    <a href="#par">Par mums</a>
                 </div>
-                
-                <div class="footer-column">
-                    <h3>Pakalpojumi</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Web Izstrāde</a></li>
-                        <li><a href="#">Mobilo Lietotņu Izstrāde</a></li>
-                        <li><a href="#">Drošības Konsultācijas</a></li>
-                        <li><a href="#">Privātie Konsultāciju Pakalpojumi</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Sazināties</h3>
-                    <ul class="footer-links">
-                        <li><a href="mailto:info@privats.lv">info@privats.lv</a></li>
-                        <li><a href="#">+371 2XXXXXXX</a></li>
-                        <li><a href="#">Rīga, Latvija</a></li>
-                    </ul>
+                <div class="footer-social">
+                    <h4>Sekot mums</h4>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
                 </div>
             </div>
-            
-            <div class="copyright">
-                <p>&copy; <span id="currentYear"></span> PRIVĀTS.LV. Visas tiesības aizsargātas. | Izstrādāts ar diskrētu pieeju</p>
+            <div class="footer-bottom">
+                <p>&copy; 2024 GreyScale Gallery. Visas tiesības aizsargātas.</p>
+                <p class="image-counter">Attēli: <span id="footerCounter">0</span>/100</p>
             </div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
-    <script>
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
-        
-        // Close mobile menu when clicking on a link
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            });
-        });
-        
-        // Portfolio filtering
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterBtns.forEach(b => b.classList.remove('active'));
-                // Add active class to clicked button
-                btn.classList.add('active');
-                
-                const filter = btn.getAttribute('data-filter');
-                
-                portfolioItems.forEach(item => {
-                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
-                        item.style.display = 'block';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-        
-        // Form submission
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Paldies par jūsu ziņojumu! Es ar jums sazināšos drīz.');
-            contactForm.reset();
-        });
-        
-        // Update copyright year
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 70,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
