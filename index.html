@@ -1,236 +1,118 @@
-
 <!DOCTYPE html>
 <html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dabas Fotogrāfija - Latvijas daba</title>
+    <title>Mana Dabas Foto Galerija</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌳</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-    <!-- NAVIGĀCIJA -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
+    <!-- GALVA -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
                 <i class="fas fa-tree"></i>
-                <span>DabaLV</span>
-            </a>
-            <div class="nav-links">
-                <a href="#home" class="active"><i class="fas fa-home"></i> Sākums</a>
-                <a href="#gallery"><i class="fas fa-images"></i> Galerija</a>
-                <a href="#about"><i class="fas fa-info-circle"></i> Par mani</a>
-                <a href="#contact"><i class="fas fa-envelope"></i> Kontakti</a>
+                <h1>Dabas Foto</h1>
             </div>
-            <button class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
+            <nav class="nav">
+                <a href="#sakums" class="nav-link active">Sākums</a>
+                <a href="#galerija" class="nav-link">Galerija</a>
+                <a href="#par" class="nav-link">Par mani</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <!-- HERO SADAĻA -->
-    <section class="hero" id="home">
+    <!-- HERO -->
+    <section class="hero" id="sakums">
         <div class="hero-content">
-            <h1 class="hero-title">Latvijas dabas skaistums</h1>
-            <p class="hero-subtitle">Aizraujošas ainavas, brīnišķīgi dzīvnieki un burvīgi meži</p>
-            <a href="#gallery" class="hero-btn">Apskatīt galeriju <i class="fas fa-arrow-down"></i></a>
+            <h2>Latvijas dabas skaistums</h2>
+            <p>Fotogrāfijas no mežiem, ezeriem un dabas ainavām</p>
         </div>
-        <div class="hero-overlay"></div>
     </section>
 
-    <!-- KATEGORIJU FILTRI -->
-    <section class="filters-section" id="gallery">
+    <!-- GALERIJAS FILTRI -->
+    <section class="filters" id="galerija">
         <div class="container">
-            <h2 class="section-title"><i class="fas fa-filter"></i> Foto galerija</h2>
-            <p class="section-subtitle">Atlasiet kategoriju vai apskatiet visus foto</p>
-            
-            <div class="filters">
-                <button class="filter-btn active" data-filter="all">
-                    <i class="fas fa-layer-group"></i> Visas fotos
-                </button>
-                <button class="filter-btn" data-filter="trees">
-                    <i class="fas fa-tree"></i> Koki
-                </button>
-                <button class="filter-btn" data-filter="birds">
-                    <i class="fas fa-dove"></i> Putni
-                </button>
-                <button class="filter-btn" data-filter="streets">
-                    <i class="fas fa-road"></i> Ielas daba
-                </button>
-                <button class="filter-btn" data-filter="forest">
-                    <i class="fas fa-hiking"></i> Meži
-                </button>
-                <button class="filter-btn" data-filter="water">
-                    <i class="fas fa-water"></i> Ūdeņi
-                </button>
-                <button class="filter-btn" data-filter="macro">
-                    <i class="fas fa-search"></i> Makro
-                </button>
-            </div>
-
-            <!-- BILŽU SKAITĪTĀJS -->
-            <div class="counter">
-                <span id="photo-count">12</span> fotogrāfijas
-                <span class="category-name">visās kategorijās</span>
+            <h3>Foto kategorijas</h3>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">Visas</button>
+                <button class="filter-btn" data-filter="mezs">Meži</button>
+                <button class="filter-btn" data-filter="putni">Putni</button>
+                <button class="filter-btn" data-filter="udens">Ūdeņi</button>
+                <button class="filter-btn" data-filter="koki">Koki</button>
             </div>
         </div>
     </section>
 
-    <!-- GALERIJA - MASONRY GRID -->
-    <section class="gallery-section">
+    <!-- GALERIJA -->
+    <section class="gallery">
         <div class="container">
-            <div class="gallery-grid" id="galleryGrid">
+            <div class="photo-grid" id="photoGrid">
                 <!-- Fotogrāfijas tiks ievietotas ar JavaScript -->
-                <!-- Šeit ir 12 piemēra bildes, aizstāj ar savām! -->
             </div>
             
-            <!-- IELĀDĒT VAIRĀK POGAS -->
-            <div class="load-more-container">
-                <button id="loadMoreBtn" class="load-more-btn">
-                    <i class="fas fa-plus"></i> Ielādēt vairāk foto
+            <div class="load-more">
+                <button id="loadMoreBtn" class="btn">
+                    <i class="fas fa-plus"></i> Ielādēt vairāk
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- PAR MANI SADAĻA -->
-    <section class="about-section" id="about">
+    <!-- PAR MANI -->
+    <section class="about" id="par">
         <div class="container">
-            <div class="about-grid">
+            <h3>Par fotogrāfu</h3>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Sveiki! Esmu dabas cienītājs un fotogrāfs. Fotografēju Latvijas dabas skaistumu visos gadalaikos.</p>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> epasts@example.lv</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Latvija</p>
+                    </div>
+                </div>
                 <div class="about-image">
-                    <div class="image-frame">
-                        <div class="image-placeholder">
-                            <i class="fas fa-camera"></i>
-                            <p>Jūsu foto šeit</p>
-                        </div>
+                    <div class="image-placeholder">
+                        <i class="fas fa-camera"></i>
                     </div>
-                </div>
-                <div class="about-content">
-                    <h2 class="section-title"><i class="fas fa-user"></i> Par fotogrāfu</h2>
-                    <p>Sveiki! Esmu dabas cienītājs un fotogrāfs no Latvijas. Mans mērķis ir saglabāt un parādīt mūsu dabas daudzveidības skaistumu.</p>
-                    
-                    <div class="about-features">
-                        <div class="feature">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h3>Lokācijas</h3>
-                                <p>Fotografēju visā Latvijā</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-camera-retro"></i>
-                            <div>
-                                <h3>Aprīkojums</h3>
-                                <p>Profesionāla fotokamera</p>
-                            </div>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-calendar-alt"></i>
-                            <div>
-                                <h3>Pieredze</h3>
-                                <p>5+ gadi dabas fotogrāfijā</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <a href="#contact" class="about-btn">Sazināties <i class="fas fa-paper-plane"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- KONTAKTI -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <h2 class="section-title"><i class="fas fa-envelope"></i> Sazināties</h2>
-            <p class="section-subtitle">Vai vēlaties sadarbību vai padomus par dabas fotogrāfiju?</p>
-            
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h3>E-pasts</h3>
-                            <p>info@dabalv.lv</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h3>Telefons</h3>
-                            <p>+371 2XXXXXXX</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h3>Atrašanās vieta</h3>
-                            <p>Latvija</p>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-flickr"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
-                    </div>
-                </div>
-                
-                <form class="contact-form" id="contactForm">
-                    <input type="text" placeholder="Jūsu vārds" required>
-                    <input type="email" placeholder="E-pasta adrese" required>
-                    <textarea placeholder="Jūsu ziņa..." rows="5" required></textarea>
-                    <button type="submit" class="submit-btn">
-                        <i class="fas fa-paper-plane"></i> Sūtīt ziņu
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
+    <!-- KĀJENE -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <i class="fas fa-tree"></i> DabaLV
-                </div>
-                <p class="footer-text">Dabas skaistums ir mūsu kopīgs mantojums. Cienīsim to un saglabāsim nākamajām paaudzēm.</p>
-                
-                <div class="footer-links">
-                    <a href="#home">Sākums</a>
-                    <a href="#gallery">Galerija</a>
-                    <a href="#about">Par mani</a>
-                    <a href="#contact">Kontakti</a>
-                </div>
-                
-                <p class="copyright">
-                    &copy; 2023 Dabas Fotogrāfija Latvijā. Visas tiesības aizsargātas.
-                </p>
-            </div>
+            <p>&copy; 2023 Dabas Foto Galerija</p>
+            <p>Visas bildes aizsargātas ar autortiesībām</p>
         </div>
     </footer>
 
-    <!-- MODAL LOGS (BILŽU APSKATĪŠANAI) -->
-    <div class="modal" id="imageModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <img id="modalImage" src="" alt="">
-            <div class="modal-info">
-                <h3 id="modalTitle"></h3>
-                <p id="modalDescription"></p>
-                <div class="modal-meta">
-                    <span><i class="fas fa-calendar"></i> <span id="modalDate"></span></span>
-                    <span><i class="fas fa-map-marker-alt"></i> <span id="modalLocation"></span></span>
-                    <span><i class="fas fa-tags"></i> <span id="modalTags"></span></span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SCRIPTS -->
+    <!-- JAVASCRIPT -->
     <script src="script.js"></script>
+    <script>
+        // Vienkāršs navigācijas skripts
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
